@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -P y99
+#PBS -q express
+#PBS -l walltime=00:10:00,software=intel-fc,ncpus=576,mem=576gb
+#PBS -j oe
+
+module load intel-fc
+module load intel-cc
+module load netcdf
+module load openmpi/1.8.4
+
+if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then
+    rm /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM
+    rm /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/cice/rundir/compile/libcice.a
+fi
+
+cd $PBS_O_WORKDIR
+cd ..
+source myenv.bash
+./build_mct.sh
+./build_cice.sh circumpolar 64 1  
+./build_roms.sh circumpolar -j 576
+cd $PBS_O_WORKDIR
+if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then 
+   echo "Success"
+    qsub roms.job
+    #qsub -v NJOBS=4 roms_rep.job
+else
+    echo "Problem with compilation"
+fi
+   

@@ -1,0 +1,7 @@
+notes
+*.job.o*
+*.nc
+tmproms/
+static_libs/cice5.1.2.tar.gz
+static_libs/mct-2.9.tar.gz
+static_libs/roms-trunk.tar.gz

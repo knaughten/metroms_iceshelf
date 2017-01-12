@@ -1,0 +1,32 @@
+#!/bin/bash
+#PBS -P y99
+#PBS -q express
+#PBS -l walltime=1:00:00,software=intel-fc,ncpus=576,mem=576gb
+#PBS -j oe
+
+module load intel-fc
+module load intel-cc
+module load netcdf
+module load openmpi/1.8.4
+export PYTHONPATH=/short/m68/kaa561/metroms_iceshelf/apps/common/python:$PYTHONPATH
+export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.8.4/lib/Intel:$LD_LIBRARY_PATH
+ulimit -s unlimited
+
+if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then
+    rm /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM
+    rm /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/cice/rundir/compile/libcice.a
+fi
+
+cd $PBS_O_WORKDIR
+cd ..
+source myenv.bash
+./build_mct.sh
+./build_cice.sh circumpolar 64 1  
+./build_roms.sh circumpolar -j 576
+cd $PBS_O_WORKDIR
+if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then 
+   python circumpolar.py
+else
+    echo "Problem with compilation"
+fi
+   
