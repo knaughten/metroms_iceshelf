@@ -934,6 +934,7 @@
 !  Exchange initial information with coupled sea ice (CICE) model.
 !-----------------------------------------------------------------------
 !
+      DO ng=1,Ngrids
       DO tile=first_tile(ng),last_tile(ng),+1
 !jd ncouple put to 1 intermediate. This is the accumulation steps for frazil ice
 !jd when frazil ice is read from restart file, this variable could be 
@@ -942,6 +943,7 @@
       END DO
 !$OMP BARRIER
       IF (Master) WRITE (stdout,'(/)')
+      END DO
 # endif
 !
 !-----------------------------------------------------------------------

@@ -218,8 +218,8 @@ ad_VolCons(north) ==  F                            ! northern boundary
      LDEFOUT == T
         NHIS == HISSTEPP
      NDEFHIS == DEFHISSTEP
-        NQCK == AVGSTEPP
-     NDEFQCK == DEFAVGSTEP
+        NQCK == 0
+     NDEFQCK == 0
       NTSAVG == STARTAVG
         NAVG == AVGSTEPP
      NDEFAVG == DEFAVGSTEP
@@ -568,7 +568,7 @@ Hout(idVvis) == T       ! AKv                vertical viscosity
 Hout(idTdif) == T       ! AKt                vertical T-diffusion
 Hout(idSdif) == T       ! AKs                vertical Salinity diffusion
 Hout(idHsbl) == T       ! Hsbl               depth of surface boundary layer
-Hout(idHbbl) == T       ! Hbbl               depth of bottom boundary layer
+Hout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 Hout(idMtke) == F       ! tke                turbulent kinetic energy
 Hout(idMtls) == F       ! gls                turbulent length scale
 
@@ -693,8 +693,8 @@ Qout(idMtls) == F       ! gls                turbulent length scale
 
 Aout(idUvel) == T       ! u                  3D U-velocity
 Aout(idVvel) == T       ! v                  3D V-velocity
-Aout(idu3dE) == T       ! u_eastward         3D U-eastward  at RHO-points
-Aout(idv3dN) == T       ! v_northward        3D V-northward at RHO-points
+Aout(idu3dE) == F       ! u_eastward         3D U-eastward  at RHO-points
+Aout(idv3dN) == F       ! v_northward        3D V-northward at RHO-points
 Aout(idWvel) == T       ! w                  3D W-velocity
 Aout(idOvel) == F       ! omega              omega vertical velocity
 Aout(idUbar) == T       ! ubar               2D U-velocity
@@ -746,7 +746,7 @@ Aout(idVvis) == T       ! AKv                vertical viscosity
 Aout(idTdif) == T       ! AKt                vertical T-diffusion
 Aout(idSdif) == T       ! AKs                vertical Salinity diffusion
 Aout(idHsbl) == T       ! Hsbl               depth of surface boundary layer
-Aout(idHbbl) == T       ! Hbbl               depth of bottom boundary layer
+Aout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 
 Aout(id2dRV) == F       ! pvorticity_bar     2D relative vorticity
 Aout(id3dRV) == F       ! pvorticity         3D relative vorticity

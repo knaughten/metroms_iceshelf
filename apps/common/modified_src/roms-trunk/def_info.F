@@ -89,9 +89,6 @@
 
       integer :: brydim, i, ie, is, j, lstr, varid
       integer :: srdim, stadim, status, swdim, trcdim, usrdim
-#ifdef ICESHELF
-      integer :: iceshelfdim
-#endif
 #ifdef SEDIMENT
       integer :: seddim
 #endif
@@ -123,7 +120,7 @@
 #ifdef BIOLOGY
       character (len=512) :: bio_file
 #endif
-      character (len=1024) :: string
+      character (len=2048) :: string
 !
 !-----------------------------------------------------------------------
 !  Set dimension variables.
@@ -140,9 +137,6 @@
       srdim=DimIDs(9)
       swdim=DimIDs(10)
       trcdim=DimIDs(11)
-#ifdef ICESHELF
-      iceshelfdim=DimIDs(5)
-#endif
 #ifdef SEDIMENT
       seddim=DimIDs(32)
 #endif

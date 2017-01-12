@@ -115,11 +115,10 @@
       TYPE(GlobalSegMap) :: GSMapROMS         ! GloabalSegMap variables
 
       CONTAINS
-/*
-************************************************************************
-*  Include model specific communication routines.
-************************************************************************
-*/
+
+!************************************************************************
+!*  Include model specific communication routines.
+!************************************************************************
 
 # ifdef SWAN_COUPLING
 #  include "mct_roms_swan.h"
