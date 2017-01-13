@@ -165,6 +165,7 @@
 !  append new data to it.  Also,  notice that it is possible to
 !  create several files during a single model run.
 !
+      LwrtQCK(ng)=.FALSE.
       IF (LdefQCK(ng)) THEN
         IF (ndefQCK(ng).gt.0) THEN
           IF (idefQCK(ng).lt.0) THEN
@@ -220,8 +221,6 @@
             LdefQCK(ng)=.FALSE.
           END IF
         END IF
-      ELSE
-        LwrtQCK(ng)=.FALSE.
       END IF
 !
 !  Write out data into quicksave NetCDF file.  Avoid writing initial
