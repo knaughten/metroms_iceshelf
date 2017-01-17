@@ -87,6 +87,7 @@
 # ifdef CICE_OCEAN
       USE ocean_coupler_mod, ONLY : ocn2cice_coupling
       USE frazil_ice_prod_mod, only: frazil_ice_prod
+      USE accum_o2i_mod, only: accum_o2i
 # endif
       USE omega_mod, ONLY : omega
 # ifdef NEARSHORE_MELLOR
@@ -805,6 +806,7 @@
                 CALL step3d_t (ng, tile)
 # if defined CICE_OCEAN
                 CALL frazil_ice_prod (ng,tile)
+                CALL accum_o2i (ng,tile)
 # endif
               END DO
 !$OMP BARRIER

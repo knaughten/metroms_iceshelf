@@ -46,8 +46,14 @@
           real(r8), pointer :: stru(:,:)      ! x-stress on ROMS u-points
           real(r8), pointer :: strv(:,:)      ! y-stress on ROMS v-points
 #if defined CICE_COUPLING
-          real(r8), pointer :: qfraz(:,:)
-          real(r8), pointer :: qfraz_accum(:,:)
+          real(r8), pointer :: qfraz(:,:)     ! Frazil formed in K*m
+! ROMS-to-CICE coupling fields accumulated over coupling interval
+          real(r8), pointer :: qfraz_accum(:,:) ! Frazil
+          real(r8), pointer :: sst_accum(:,:)   ! Surface temperature
+          real(r8), pointer :: sss_accum(:,:)   ! Surface salinity
+          real(r8), pointer :: u_accum(:,:,:)   ! u (3D for now)
+          real(r8), pointer :: v_accum(:,:,:)   ! v (3D for now)
+          real(r8), pointer :: ssh_accum(:,:)   ! Sea surface height
 #endif
         END TYPE T_ICE
 
@@ -83,6 +89,11 @@
 #if defined CICE_COUPLING
         allocate ( ICE(ng) % qfraz(LBi:UBi,LBj:UBj))
         allocate ( ICE(ng) % qfraz_accum(LBi:UBi,LBj:UBj))
+        allocate ( ICE(ng) % sst_accum(LBi:UBi,LBj:UBj))
+        allocate ( ICE(ng) % sss_accum(LBi:UBi,LBj:UBj))
+        allocate ( ICE(ng) % u_accum(LBi:UBi,LBj:UBj,N(ng)))
+        allocate ( ICE(ng) % v_accum(LBi:UBi,LBj:UBj,N(ng)))
+        allocate ( ICE(ng) % ssh_accum(LBi:UBi,LBj:UBj))
 #endif
         
         ICE(ng)%aice = IniVal
@@ -99,6 +110,11 @@
 # if defined CICE_COUPLING
         ICE(ng) % qfraz = IniVal
         ICE(ng) % qfraz_accum = IniVal
+        ICE (ng) % sst_accum = IniVal
+        ICE (ng) % sss_accum = IniVal
+        ICE (ng) % u_accum = IniVal
+        ICE (ng) % v_accum = IniVal
+        ICE (ng) % ssh_accum = IniVal
 #endif
         
         RETURN

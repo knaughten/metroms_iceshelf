@@ -687,10 +687,23 @@
 
          CASE ('SST')
 
+! Convert accumulated array to average           
+            DO j=JstrR,JendR
+              DO i=IstrR,IendR
+                IF (ncouple.eq.1) THEN
+                  ICE(ng) % sst_accum(i,j) =                            &
+     &                      OCEAN(ng)%t(i,j,N(ng),NOUT,itemp)
+                ELSE
+                  ICE(ng) % sst_accum(i,j) =                            &
+     &                      ICE(ng) % sst_accum (i,j) / ncouple
+                END IF
+              END DO
+            END DO
+
             CALL ROMS_export2d (ng, tile,                               &
      &                          id, gtype, scale, add_offset,           &
      &                          LBi, UBi, LBj, UBj,                     &
-     &                          OCEAN(ng)%t(:,:,N(ng),NOUT,itemp),      &
+     &                          ICE(ng) % sst_accum,                    &
      &                          Fields(id)%ExpMin, Fields(id)%ExpMax,   &
      &                          Asize, A,                               &
      &                          status)
@@ -702,12 +715,28 @@
             CALL AttrVect_importRAttr(ocn2cice_AV, TRIM(code), A, Asize)
             Iexport=Iexport+1
 
+! Reset accumulation array
+            ICE(ng)%sst_accum(:,:) = 0
+
          CASE ('SSS')
+
+! Convert accumulated array to average           
+            DO j=JstrR,JendR
+              DO i=IstrR,IendR
+                 IF (ncouple.eq.1) THEN
+                   ICE(ng) % sss_accum(i,j) =                           &
+     &                       OCEAN(ng)%t(i,j,N(ng),NOUT,isalt)
+                 ELSE
+                   ICE(ng) % sss_accum(i,j) =                           &
+     &                       ICE(ng) % sss_accum (i,j) / ncouple
+                 END IF
+              END DO
+            END DO
 
             CALL ROMS_export2d (ng, tile,                               &
      &                          id, gtype, scale, add_offset,           &
      &                          LBi, UBi, LBj, UBj,                     &
-     &                          OCEAN(ng)%t(:,:,N(ng),NOUT,isalt),      &
+     &                          ICE(ng) % sss_accum,                    &
      &                          Fields(id)%ExpMin, Fields(id)%ExpMax,   &
      &                          Asize, A,                               &
      &                          status)
@@ -719,13 +748,16 @@
             CALL AttrVect_importRAttr(ocn2cice_AV, TRIM(code), A, Asize)
             Iexport=Iexport+1
 
+! Reset accumulation array
+            ICE(ng)%sss_accum(:,:) = 0
+
          CASE ('FRZMLT')
            do j=JstrR,JendR
             do i=IstrR,IendR
 # ifdef ICESHELF
              ! Don't touch the ice shelf cavities
              if (GRID(ng)%zice(i,j) .eq. 0.0_r8) then
-# endif
+# endif   
              if (ICE(ng)%qfraz_accum(i,j).gt.0.0_r8) then
               ! Ice was formed
               ! Convert from K*m to W/m^2
@@ -768,15 +800,29 @@
 
 
         CASE ('u')
+
+! Convert accumulated array to average
+           DO k=1,N(ng)
+             DO j=JstrR,JendR
+               DO i=IstrR,IendR
+                 IF (ncouple.eq.1) THEN
+                   ICE(ng) % u_accum(i,j,k) =                           &
+     &                       OCEAN(ng)%u(i,j,k,NOUT)
+                 ELSE
+                   ICE(ng) % u_accum(i,j,k) =                           &
+     &                       ICE(ng) % u_accum(i,j,k) / ncouple
+                 END IF
+               END DO
+             END DO
+           END DO
+
            do j=JstrR,JendR
               do i=IstrR,IendR
                  uw(i,j) = 0.0_r8
                  totml = 0.0_r8
                  do k=N(ng),nbot(i,j),-1
                     dml = GRID(ng)%z_w(i,j,k)-GRID(ng)%z_w(i,j,k-1)
-                    uw(i,j) = uw(i,j) + 0.5_r8*dml*                     &
-     &                        (OCEAN(ng)%u(i+1,j,k,NOUT) +              &
-     &                         OCEAN(ng)%u(i,j,k,NOUT))
+                    uw(i,j) = uw(i,j) + ICE(ng)%u_accum(i,j,k)*dml
                     totml = totml + dml
                  enddo
                  uw(i,j) = uw(i,j)/totml
@@ -809,16 +855,33 @@
            CALL AttrVect_importRAttr(ocn2cice_AV, TRIM(code), A, Asize)
            Iexport=Iexport+1
 
+! Reset accumulation array
+           ICE(ng)%u_accum(:,:,:) = 0
+
         CASE ('v')
+
+! Convert accumulated array to average
+           DO k=1,N(ng)
+             DO j=JstrR,JendR
+               DO i=IstrR,IendR
+                 IF (ncouple.eq.1) THEN
+                   ICE(ng) % v_accum(i,j,k) =                           &
+     &                       OCEAN(ng)%v(i,j,k,NOUT)
+                 ELSE
+                   ICE(ng) % v_accum(i,j,k) =                           &
+     &                       ICE(ng) % v_accum(i,j,k) / ncouple
+                 END IF
+               END DO
+             END DO
+           END DO
+
            do j=JstrR,JendR
               do i=IstrR,IendR
                  vw(i,j) = 0.0_r8
                  totml = 0.0_r8
                  do k=N(ng),nbot(i,j),-1
                     dml = GRID(ng)%z_w(i,j,k)-GRID(ng)%z_w(i,j,k-1)
-                    vw(i,j) = vw(i,j) + 0.5_r8*dml*                     &
-     &                        (OCEAN(ng)%v(i,j+1,k,NOUT) +              &
-     &                         OCEAN(ng)%v(i,j,k,NOUT))
+                    vw(i,j) = vw(i,j) + ICE(ng)%v_accum(i,j,k)*dml
                     totml = totml + dml
                  enddo
                  vw(i,j) = vw(i,j)/totml
@@ -849,7 +912,23 @@
              CALL AttrVect_importRAttr(ocn2cice_AV, TRIM(code),A,Asize)
              Iexport=Iexport+1
 
+! Reset accumulation array
+           ICE(ng)%v_accum(:,:,:) = 0
+
           CASE ('SSH')
+
+! Convert accumulated array to average           
+            DO j=JstrR,JendR
+              DO i=IstrR,IendR
+                IF (ncouple.eq.1) THEN
+                  ICE(ng) % ssh_accum(i,j) =                            &
+     &                      OCEAN(ng)%zeta(i,j,NOUT)
+                ELSE
+                  ICE(ng) % ssh_accum(i,j) =                            &
+     &                      ICE(ng) % ssh_accum (i,j) / ncouple
+                END IF
+              END DO
+            END DO
 
              CALL ROMS_export2d (ng, tile,                              &
      &                          id, gtype, scale, add_offset,           &
@@ -865,6 +944,9 @@
 #endif
              CALL AttrVect_importRAttr(ocn2cice_AV,TRIM(code),A,Asize)
              Iexport=Iexport+1
+
+! Reset accumulation array
+           ICE(ng)%ssh_accum(:,:) = 0
 
 
         END SELECT

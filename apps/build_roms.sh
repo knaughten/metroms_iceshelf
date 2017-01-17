@@ -121,6 +121,8 @@ touch $MY_ROMS_SRC/ROMS/Modules/mod_ice.F
 touch $MY_ROMS_SRC/ROMS/Modules/mod_iceshelf.F
 touch $MY_ROMS_SRC/ROMS/Modules/mod_iceshelfvar.F
 
+touch $MY_ROMS_SRC/ROMS/Nonlinear/accum_o2i_mod.F
+
 rm -rf $MY_ROMS_SRC/User
 
 # Set path of the directory containing makefile configuration (*.mk) files.
