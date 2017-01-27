@@ -15,3 +15,5 @@ Kaitlin's additions to metroms:
 
 -Non-interpolation of 12-hour ERA-Interim precipitation forcing (option PRECIP_NOINTERP)
 
+-Time-averaging of ROMS-to-CICE coupling fields over the coupling interval
+

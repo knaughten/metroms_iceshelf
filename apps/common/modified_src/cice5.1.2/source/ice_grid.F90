@@ -25,7 +25,8 @@
       use ice_fileunits, only: nu_diag, nu_grid, nu_kmt
       use ice_gather_scatter, only: gather_global, scatter_global
       use ice_read_write, only: ice_read, ice_read_nc, ice_read_global, &
-          ice_read_global_nc, ice_open, ice_open_nc, ice_close_nc
+          ice_read_global_nc, ice_open, ice_open_nc, ice_close_nc, &
+          ice_read_global_nc2, ice_read_nc2
       use ice_timers, only: timer_bound, ice_timer_start, ice_timer_stop
 
       implicit none
@@ -115,12 +116,8 @@
 
       ! grid dimensions for rectangular grid
       real (kind=dbl_kind), parameter ::  &
-!METNO START
-!kw         dxrect = 30.e5_dbl_kind   ,&! uniform HTN (cm)
-!kw         dyrect = 30.e5_dbl_kind     ! uniform HTE (cm)
-         dxrect = 20.e6_dbl_kind   ,&! uniform HTN (cm)
-         dyrect = 20.e6_dbl_kind     ! uniform HTE (cm)
-!METNO END
+         dxrect = 30.e5_dbl_kind   ,&! uniform HTN (cm)
+         dyrect = 30.e5_dbl_kind     ! uniform HTE (cm)
 
       real (kind=dbl_kind), dimension (nx_block,ny_block,max_blocks), public, save :: &
          rndex_global       ! global index for local subdomain (dbl)
@@ -207,10 +204,8 @@
             fieldname='kmt'
             call ice_read_global_nc(fid_kmt,1,fieldname,work_g2,.true.)
 
-            if (my_task == master_task) then
-               call ice_close_nc(fid_grid)
-               call ice_close_nc(fid_kmt)
-            endif
+            call ice_close_nc(fid_grid)
+            call ice_close_nc(fid_kmt)
 
          else
 
@@ -294,7 +289,7 @@
             call popgrid_nc     ! read POP grid lengths from nc file
          else
             call popgrid        ! read POP grid lengths directly
-         endif 
+         endif
       elseif (trim(grid_type) == 'latlon') then
          call latlongrid        ! lat lon grid for sequential CCSM (CAM mode)
          return
@@ -1187,10 +1182,20 @@
 ! Land mask record number and field is:
 ! (1) KMT.
 !
+! These really doesn't matter and isn't correct anyways.
+! There's an offset of 4 due to xi_t, eta_t, xi_u and eta_u
+! that comes before in the file /seb
 ! Grid record number, field and units are: 
 ! (1) ULAT   (degrees)    
 ! (2) ULON   (degrees)    
-! (3) ANGLE  (radians)    
+! (3) ANGLE  (radians)
+! (4) HTN    (m)
+! (5) HTE    (m)
+! (6) dxt    (m)
+! (7) dyt    (m)
+! (8) dxu    (m)
+! (9) dyu    (m)
+!    
 !
 ! author: Keguang Wang, met.no, 14/10/2014
 
@@ -1199,7 +1204,8 @@
 #ifdef ncdf
       use ice_blocks, only: nx_block, ny_block
       use ice_constants, only: c0, c1, pi, pi2, rad_to_deg, puny, p5, p25, &
-          field_loc_center, field_loc_NEcorner, &
+          field_loc_center, field_loc_NEcorner,&
+          field_loc_Nface,  field_loc_Eface,&
           field_type_scalar, field_type_angle
       use ice_domain_size, only: max_blocks
 
@@ -1233,7 +1239,7 @@
       !-----------------------------------------------------------------
 
       fieldname='kmt'
-      call ice_read_nc(fid_kmt,1,fieldname,work1,diag, &
+      call ice_read_nc2(fid_kmt,fieldname,work1,diag, &
                        field_loc=field_loc_center, & 
                        field_type=field_type_scalar)
 
@@ -1259,30 +1265,58 @@
       ! lat, lon, angle
       !-----------------------------------------------------------------
 
-      allocate(work_g1(nx_global,ny_global))
+      if (my_task == master_task) then
+         allocate(work_g1(nx_global,ny_global))
+      else
+         allocate(work_g1(1,1)) ! to save memory
+      endif
 
       fieldname='ulat'
-      call ice_read_global_nc(fid_grid,1,fieldname,work_g1,diag) ! ULAT
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag) ! ULAT
       call gridbox_verts(work_g1,latt_bounds)       
       call scatter_global(ULAT, work_g1, master_task, distrb_info, &
                           field_loc_NEcorner, field_type_scalar)
 
       fieldname='ulon'
-      call ice_read_global_nc(fid_grid,2,fieldname,work_g1,diag) ! ULON
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag) ! ULON
       call gridbox_verts(work_g1,lont_bounds)       
       call scatter_global(ULON, work_g1, master_task, distrb_info, &
                           field_loc_NEcorner, field_type_scalar)
 
       fieldname='angle'
-      call ice_read_global_nc(fid_grid,3,fieldname,work_g1,diag) ! ANGLE    
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag) ! ANGLE    
       call scatter_global(ANGLE, work_g1, master_task, distrb_info, &
                           field_loc_NEcorner, field_type_angle)
 
-      work_g1 = dxrect
-      call primary_grid_lengths_HTN(work_g1)  ! dxu, dxt
+      fieldname='HTN'
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag)    
+      call scatter_global(HTN, work_g1, master_task, distrb_info, &
+                          field_loc_Nface, field_type_scalar)
 
-      work_g1 = dyrect
-      call primary_grid_lengths_HTE(work_g1)  ! dyu, dyt
+      fieldname='HTE'
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag)    
+      call scatter_global(HTE, work_g1, master_task, distrb_info, &
+                          field_loc_Eface, field_type_scalar)
+
+      fieldname='dxt'
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag)    
+      call scatter_global(dxt, work_g1, master_task, distrb_info, &
+                          field_loc_center, field_type_scalar)
+
+      fieldname='dyt'
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag)    
+      call scatter_global(dyt, work_g1, master_task, distrb_info, &
+                          field_loc_center, field_type_scalar)
+
+      fieldname='dxu'
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag)    
+      call scatter_global(dxu, work_g1, master_task, distrb_info, &
+                          field_loc_NEcorner, field_type_scalar)
+
+      fieldname='dyu'
+      call ice_read_global_nc2(fid_grid,fieldname,work_g1,diag)
+      call scatter_global(dyu, work_g1, master_task, distrb_info, &
+                          field_loc_NEcorner, field_type_scalar)
 
       ! fix units
       ULAT   = ULAT   / rad_to_deg
@@ -1291,10 +1325,8 @@
 
       deallocate(work_g1)
 
-      if (my_task == master_task) then
-         close (nu_grid)
-         close (nu_kmt)
-      endif
+      call ice_close_nc (nu_grid)
+      call ice_close_nc (nu_kmt)
 
 #endif
 

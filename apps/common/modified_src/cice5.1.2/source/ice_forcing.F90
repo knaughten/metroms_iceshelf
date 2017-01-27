@@ -1430,6 +1430,7 @@
 !jd           ' precip_units, precip_factor ', trim(precip_units), precip_factor
 
 !jd START  No time interpolation of precip fields in this version
+! Unit conversions are done in ecmwf_data
       if (trim(atm_data_type) ==  'ecmwf') precip_factor = c1
 !jd END
 
