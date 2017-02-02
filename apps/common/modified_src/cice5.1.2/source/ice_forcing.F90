@@ -2770,6 +2770,7 @@
            trim(precip_units) == 'mks') then
 	 precip_factor = c1   ! mm/sec = kg/m^2 s
       endif
+!      if (my_task == master_task) write(nu_diag,*) 'ecmwf_data: precip_factor ', precip_factor
 
       !$OMP PARALLEL DO PRIVATE(iblk)
       do iblk = 1, nblocks
@@ -2843,7 +2844,7 @@
               trim(precip_units) == 'mks') then 
             precip_factor = c1    ! mm/sec = kg/m^2 s
          endif
-!jd         if (my_task == master_task) write(nu_diag,*) 'ecmwf_data: precip_factor ', precip_factor
+!         if (my_task == master_task) write(nu_diag,*) 'ecmwf_data: precip_factor ', precip_factor
 
          !$OMP PARALLEL DO PRIVATE(iblk)
          do iblk = 1, nblocks

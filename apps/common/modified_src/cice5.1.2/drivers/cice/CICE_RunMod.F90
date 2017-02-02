@@ -66,14 +66,14 @@
    !--------------------------------------------------------------------
 
       timeLoop: do
-#endif
+#endif         
+         
 
 #ifdef ROMSCOUPLED
          call CICE_MCT_coupling
 #endif
-         
-         call ice_step ! restarts written at the end of this call
 
+         call ice_step ! restarts written at the end of this call
 
          istep  = istep  + 1    ! update time step counters
          istep1 = istep1 + 1
@@ -105,6 +105,10 @@
    !--------------------------------------------------------------------
    ! end of timestep loop
    !--------------------------------------------------------------------
+
+#ifdef ROMSCOUPLED
+      call CICE_MCT_coupling
+#endif
 
       call ice_timer_stop(timer_step)   ! end timestepping loop timer     
 

@@ -23,7 +23,10 @@
          ice_ic      ! method of ice cover initialization
                      ! 'default'  => latitude and sst dependent
                      ! 'none'     => no ice
+		     ! 'mask'     => ice mask read from file
                      ! note:  restart = .true. overwrites
+      character(len=char_len_long) :: &
+         ice_ic_file ! if ice_ic = 'mask', filename to read
 
 !=======================================================================
 
@@ -116,7 +119,8 @@
         days_per_year,  use_leap_years, year_init,       istep0,        &
         dt,             npt,            ndtd,                           &
         runtype,        runid,          bfbflag,                        &
-        ice_ic,         restart,        restart_dir,     restart_file,  &
+        ice_ic,         ice_ic_file,                                    &
+        restart,        restart_dir,     restart_file,                  &
         restart_ext,    use_restart_time, restart_format, lcdf64,       &
         pointer_file,   dumpfreq,       dumpfreq_n,      dump_last,     &
         diagfreq,       diag_type,      diag_file,                      &
@@ -213,6 +217,7 @@
       restart_format = 'nc'  ! file format ('bin'=binary or 'nc'=netcdf or 'pio')
       lcdf64       = .false. ! 64 bit offset for netCDF
       ice_ic       = 'default'      ! latitude and sst-dependent
+      ice_ic_file  = 'unknown_ic_file'
       grid_format  = 'bin'          ! file format ('bin'=binary or 'nc'=netcdf)
       grid_type    = 'rectangular'  ! define rectangular grid internally
       grid_file    = 'unknown_grid_file'
@@ -399,7 +404,7 @@
             open(nu_diag,file=str)
          endif
       end if
-      if (trim(ice_ic) /= 'default' .and. trim(ice_ic) /= 'none') then
+      if (trim(ice_ic) /= 'default' .and. trim(ice_ic) /= 'none' .and. trim(ice_ic) /= 'mask') then
          restart = .true.
       end if
 #else
@@ -419,7 +424,7 @@
 
       if (trim(runtype) == 'continue') restart = .true.
       if (trim(runtype) /= 'continue' .and. (restart)) then
-         if (ice_ic == 'none' .or. ice_ic == 'default') then
+         if (ice_ic == 'none' .or. ice_ic == 'default' .or. ice_ic == 'mask') then
             if (my_task == master_task) then
             write(nu_diag,*) &
             'WARNING: runtype, restart, ice_ic are inconsistent:'
@@ -433,7 +438,7 @@
          endif
       endif
       if (trim(runtype) == 'initial' .and. .not.(restart)) then
-         if (ice_ic /= 'none' .and. ice_ic /= 'default') then
+         if (ice_ic /= 'none' .and. ice_ic /= 'default' .and. ice_ic /= 'mask') then
             if (my_task == master_task) then
             write(nu_diag,*) &
             'WARNING: runtype, restart, ice_ic are inconsistent:'
@@ -671,6 +676,7 @@
       call broadcast_scalar(lcdf64,             master_task)
       call broadcast_scalar(pointer_file,       master_task)
       call broadcast_scalar(ice_ic,             master_task)
+      call broadcast_scalar(ice_ic_file,        master_task)
       call broadcast_scalar(grid_format,        master_task)
       call broadcast_scalar(grid_type,          master_task)
       call broadcast_scalar(grid_file,          master_task)
@@ -829,6 +835,8 @@
          write(nu_diag,*)    ' use_restart_time          = ', use_restart_time
          write(nu_diag,*)    ' ice_ic                    = ', &
                                trim(ice_ic)
+         write(nu_diag,*)    ' ice_ic_file               = ', &
+                               trim(ice_ic_file)
          write(nu_diag,*)    ' grid_type                 = ', &
                                trim(grid_type)
          if (trim(grid_type) /= 'rectangular' .or. &
@@ -1128,9 +1136,9 @@
       subroutine init_state
 
       use ice_blocks, only: block, get_block, nx_block, ny_block
-      use ice_constants, only: c0
+      use ice_constants, only: c0, field_loc_center, field_type_scalar
       use ice_domain, only: nblocks, blocks_ice
-      use ice_domain_size, only: nilyr, nslyr, max_ntrcr, n_aero
+      use ice_domain_size, only: nilyr, nslyr, max_ntrcr, n_aero, max_blocks
       use ice_fileunits, only: nu_diag
       use ice_flux, only: sst, Tf, Tair, salinz, Tmltz
       use ice_grid, only: tmask, ULON, ULAT
@@ -1142,6 +1150,7 @@
       use ice_itd, only: aggregate
       use ice_exit, only: abort_ice
       use ice_therm_shared, only: ktherm, heat_capacity
+      use ice_read_write, only: ice_open_nc, ice_read_nc, ice_close_nc
 
       integer (kind=int_kind) :: &
          ilo, ihi    , & ! physical domain indices
@@ -1150,7 +1159,11 @@
          jglob(ny_block), & ! global indices
          k           , & ! vertical index
          it          , & ! tracer index
-         iblk            ! block index
+         iblk        , & ! block index
+	 fid             ! file unit
+
+      real (kind=dbl_kind), dimension (nx_block,ny_block,max_blocks) :: &
+           aice_mask   ! if ice_ic = 'mask'
 
       type (block) :: &
          this_block           ! block information for current block
@@ -1238,6 +1251,15 @@
       ! Set state variables
       !-----------------------------------------------------------------
 
+      if (trim(ice_ic) == 'mask') then
+        call ice_open_nc(trim(ice_ic_file),fid)
+	call ice_read_nc(fid, 1, 'aice', aice_mask, .true., &
+	                 field_loc_center, field_type_scalar)
+	call ice_close_nc(fid)
+      else
+        aice_mask(:,:,:) = 0.0_dbl_kind
+      endif
+
       !$OMP PARALLEL DO PRIVATE(iblk,ilo,ihi,jlo,jhi,this_block, &
       !$OMP                     iglob,jglob)
       do iblk = 1, nblocks
@@ -1253,7 +1275,8 @@
          call set_state_var (nx_block,            ny_block,            &
                              ilo, ihi,            jlo, jhi,            &
                              iglob,               jglob,               &
-                             ice_ic,              tmask(:,:,    iblk), &
+                             ice_ic,       aice_mask(:,:,iblk),        &
+                             tmask(:,:,    iblk),                      &
                              ULON (:,:,    iblk), ULAT (:,:,    iblk), &
                              Tair (:,:,    iblk), sst  (:,:,    iblk), &
                              Tf   (:,:,    iblk),                      &
@@ -1316,7 +1339,8 @@
       subroutine set_state_var (nx_block, ny_block, &
                                 ilo, ihi, jlo, jhi, &
                                 iglob,    jglob,    &
-                                ice_ic,   tmask,    &
+                                ice_ic,   aice_mask,&
+				tmask,              &
                                 ULON,     ULAT, &
                                 Tair,     sst,  &
                                 Tf,       &
@@ -1343,17 +1367,19 @@
          ilo, ihi          , & ! physical domain indices
          jlo, jhi          , & !
          iglob(nx_block)   , & ! global indices
-         jglob(ny_block)       !
+         jglob(ny_block)   
 
       character(len=char_len_long), intent(in) :: & 
          ice_ic      ! method of ice cover initialization
 
       logical (kind=log_kind), dimension (nx_block,ny_block), &
          intent(in) :: &
-         tmask      ! true for ice/ocean cells
+         tmask    ! true for ice/ocean cells
+	 
 
       real (kind=dbl_kind), dimension (nx_block,ny_block), &
          intent(in) :: &
+	 aice_mask, &    ! if ice_ic = 'mask'
          ULON   , & ! latitude of velocity pts (radians)
          ULAT       ! latitude of velocity pts (radians)
 
@@ -1513,6 +1539,44 @@
          enddo                  ! j
 
 !         endif                  ! rectgrid
+
+      elseif (trim(ice_ic) == 'mask') then
+
+	 icells = 0
+	 do j = jlo, jhi
+	 do i = ilo, ihi
+	    if (tmask(i,j)) then
+	       if ( (aice_mask(i,j) > 0.15_dbl_kind) ) then
+	          icells = icells + 1
+		  indxi(icells) = i
+		  indxj(icells) = j
+	       endif
+	    endif
+	 enddo
+	 enddo
+
+      ! initial category areas in cells with ice
+         hbar = c1  ! initial ice thickness with greatest area
+                    ! Note: the resulting average ice thickness 
+                    ! tends to be less than hbar due to the
+                    ! nonlinear distribution of ice thicknesses 
+         sum = c0
+         do n = 1, ncat
+            if (n < ncat) then
+               hinit(n) = p5*(hin_max(n-1) + hin_max(n)) ! m
+            else                ! n=ncat
+               hinit(n) = (hin_max(n-1) + c1) ! m
+            endif
+            ! parabola, max at h=hbar, zero at h=0, 2*hbar
+            ainit(n) = max(c0, (c2*hbar*hinit(n) - hinit(n)**2))
+            sum = sum + ainit(n)
+         enddo
+         do n = 1, ncat
+            ainit(n) = ainit(n) / (sum + puny/ncat) ! normalize
+         enddo
+
+      endif
+      if (trim(ice_ic) == 'default' .or. trim(ice_ic) == 'mask') then
 
          do n = 1, ncat
 

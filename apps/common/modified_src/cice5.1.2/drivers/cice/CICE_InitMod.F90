@@ -84,6 +84,7 @@
 #endif
 #ifdef ROMSCOUPLED
       use CICE_MCT, only: init_mct, CICE_MCT_coupling
+      use ice_accum_fields, only: first_accum_fields
 #endif
 
       call init_communicate     ! initial setup for message passing
@@ -160,9 +161,10 @@
       call init_flux_atm        ! initialize atmosphere fluxes sent to coupler
       call init_flux_ocn        ! initialize ocean fluxes sent to coupler
 
-      if (write_ic) call accum_hist(dt) ! write initial conditions 
+      if (write_ic) call accum_hist(dt) ! write initial conditions
 
 #ifdef ROMSCOUPLED
+      call first_accum_fields
       call CICE_MCT_coupling
 #endif
 
@@ -218,7 +220,7 @@
 #endif
          if (kdyn == 2) call read_restart_eap ! EAP
       else if (restart) then          ! ice_ic = core restart file
-         call restartfile (ice_ic)    !  or 'default' or 'none'
+         call restartfile (ice_ic)    !  or 'default' or 'none' or 'mask'
 #ifdef ROMSCOUPLED
          if (bool_accum_read) call read_restart_accum_fields
 #endif
@@ -226,7 +228,7 @@
          ! call restartfile_v4 (ice_ic)  ! CICE v4.1 binary restart file
          !!! uncomment if EAP restart data exists
          ! if (kdyn == 2) call read_restart_eap
-      endif         
+      endif
 
       ! tracers
       ! ice age tracer   

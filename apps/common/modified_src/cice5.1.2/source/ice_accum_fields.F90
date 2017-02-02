@@ -11,7 +11,8 @@
       implicit none
 
       private
-      public :: init_accum_fields, accumulate_i2o_fields,               &
+      public :: init_accum_fields, first_accum_fields,                  &
+                accumulate_i2o_fields,                                  &
                 write_restart_accum_fields, read_restart_accum_fields,  &
                 update_accum_clock, mean_i2o_fields, zero_i2o_fields,   &
                 idaice, idfresh, idfsalt, idfhocn, idfswthru,           &
@@ -34,10 +35,24 @@
       subroutine init_accum_fields()
 
       accum_i2o_fields(:,:,:,:) = c0
-!      accum_time = c0
 
       end subroutine init_accum_fields
 
+
+      subroutine first_accum_fields()
+      use ice_state, only: aice
+      use ice_flux, only: fresh_ai, fsalt_ai,&
+         fhocn_ai,fswthru_ai, strocnxT, strocnyT
+
+      accum_i2o_fields(:,:,idaice,:) = aice(:,:,:)
+      accum_i2o_fields(:,:,idfresh,:) = fresh_ai(:,:,:)
+      accum_i2o_fields(:,:,idfsalt,:) = fsalt_ai(:,:,:)
+      accum_i2o_fields(:,:,idfhocn,:) = fhocn_ai(:,:,:)
+      accum_i2o_fields(:,:,idfswthru,:) = fswthru_ai(:,:,:)
+      accum_i2o_fields(:,:,idstrocnx,:) = strocnxT(:,:,:)*aice(:,:,:)
+      accum_i2o_fields(:,:,idstrocny,:) = strocnyT(:,:,:)*aice(:,:,:)
+
+      end subroutine first_accum_fields
 
 !======================================================================
 
@@ -107,8 +122,6 @@
       subroutine mean_i2o_fields()
       if (accum_time /= 0) then
           accum_i2o_fields(:,:,:,:) = accum_i2o_fields(:,:,:,:) / accum_time
-      else
-          accum_i2o_fields(:,:,:,:) = 0
       endif
       end subroutine mean_i2o_fields
 

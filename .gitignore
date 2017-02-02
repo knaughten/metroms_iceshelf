@@ -5,10 +5,17 @@ tmproms/
 static_libs/cice5.1.2.tar.gz
 static_libs/mct-2.9.tar.gz
 static_libs/roms-trunk.tar.gz
+static_libs/cice/
 apps/circumpolar2/
 apps/circumpolar3/
 apps/circumpolar4/
+apps/circumpolar5/
+apps/circumpolar6/
+apps/circumpolar7/
 apps/common/cice_input_grids/circumpolar2/
 apps/common/cice_input_grids/circumpolar3/
 apps/common/cice_input_grids/circumpolar4/
+apps/common/cice_input_grids/circumpolar5/
+apps/common/cice_input_grids/circumpolar6/
+apps/common/cice_input_grids/circumpolar7/
 apps/circumpolar/modified_src/

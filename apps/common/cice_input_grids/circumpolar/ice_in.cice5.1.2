@@ -8,6 +8,7 @@
   , ndtd           = 1
   , runtype        = CICERUNTYPE
   , ice_ic         = CICEIC
+  , ice_ic_file    = CICEMASKICFILE
   , restart        = CICEREST
   , restart_ext    = .false.
   , use_restart_time = CICERSTTIME
@@ -150,7 +151,7 @@
 /
 
 &forcing_nml
-    formdrag        = .true.
+    formdrag        = .false.
   , atmbndy         = 'default'
   , fyear_init      = CICEFYEARINIT
   , ycycle          = 1000
@@ -163,7 +164,7 @@
   , calc_Tsfc       = .true.
   , precip_units    = 'm_per_12hr'
   , ustar_min       = 0.0005
-  , fbot_xfer_type  = 'Cdn_ocn'
+  , fbot_xfer_type  = 'constant'
   , update_ocn_f    = .true.
   , l_mpond_fresh   = .false.
   , tfrz_option     = 'mushy'
@@ -377,3 +378,4 @@
   , f_Cdn_ocn      = 'x'
 /
 
+  
