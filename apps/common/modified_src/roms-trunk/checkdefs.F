@@ -722,6 +722,18 @@
       is=LEN_TRIM(Coptions)+1
       Coptions(is:is+9)=' EMINUSP,'
 #endif
+#if defined SEPARATE_EVAP
+      IF (Master) WRITE (stdout,20) 'SEPARATE_EVAP',                    &
+     &   'Read evaporation separate to precipitation.'
+      is=LEN_TRIM(Coptions)+1
+      Coptions(is:is+15)=' SEPARATE_EVAP,'
+#endif
+#if defined PRECIP_NOINTERP
+      IF (Master) WRITE (stdout,20) 'PRECIP_NOINTERP',                  &
+     &   'Do not interpolate ERA-Interim precipitiation in time'
+      is=LEN_TRIM(Coptions)+1
+      Coptions(is:is+17)=' PRECIP_NOINTERP,'
+#endif
 #if defined ICEBERGS && defined BULK_FLUXES
       IF (Master) WRITE (stdout,20) 'ICEBERGS',                         &
      &   'Add freshwater flux from iceberg melt'

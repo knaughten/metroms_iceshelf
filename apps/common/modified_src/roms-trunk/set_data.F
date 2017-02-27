@@ -315,6 +315,19 @@
      &                     FORCES(ng)%rain,                             &
      &                     update)
       IF (exit_flag.ne.NoError) RETURN
+#   ifdef SEPARATE_EVAP
+!
+!-----------------------------------------------------------------------
+!  Set evaporation (kg/m2/s).
+!-----------------------------------------------------------------------
+!
+      CALL set_2dfld_tile (ng, tile, iNLM, idevap,                      &
+     &                     LBi, UBi, LBj, UBj,                          &
+     &                     FORCES(ng)%evapG,                            &
+     &                     FORCES(ng)%evap,                             &
+     &                     update)
+      IF (exit_flag.ne.NoError) RETURN
+#   endif
 #   ifdef ICEBERGS
 !
 !-----------------------------------------------------------------------
@@ -438,7 +451,8 @@
      &                     update)
       IF (exit_flag.ne.NoError) RETURN
 
-#    elif !(defined EMINUSP || defined SRELAXATION)
+#    elif !(defined EMINUSP || defined SRELAXATION || \
+            defined SEPARATE_EVAP)
       CALL set_2dfld_tile (ng, tile, iNLM, idsfwf,                      &
      &                     LBi, UBi, LBj, UBj,                          &
      &                     FORCES(ng)%stflxG(:,:,:,isalt),              &

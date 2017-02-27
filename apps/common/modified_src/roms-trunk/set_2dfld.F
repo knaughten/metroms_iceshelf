@@ -127,7 +127,7 @@
               ! 12 hours; this should not be interpolated. (Originally it was
               ! over the preceding 12 hours, but the time axis has been adjusted
               ! in the forcing files to make things easier for ROMS.)
-              IF (ifield.eq.idrain) THEN
+              IF ((ifield.eq.idrain).or.(ifield.eq.idevap)) THEN
                  Fout(i,j)=Finp(i,j,it1)
               ELSE
                  Fout(i,j)=fac1*Finp(i,j,it1)+fac2*Finp(i,j,it2)

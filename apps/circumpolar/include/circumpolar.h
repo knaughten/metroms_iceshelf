@@ -64,7 +64,7 @@
 #define SALINITY           /* define if using salinity */
 #define SOLVE3D            /* define if solving 3D primitive equations */
 #undef  BODYFORCE          /* define if applying stresses as bodyforces */
-#undef  SPLINES            /* turn ON or OFF parabolic splines reconstruction */
+#define RI_SPLINES
 #define MASKING            /* define if there is land in the domain */
 #define AVERAGES           /* define if writing out time-averaged data */
 #undef  AVERAGES_DETIDE    /*use if writing out NLM time-averaged detided fields*/
@@ -87,7 +87,7 @@
 # define LMD_BKPP          /* use if bottom boundary layer KPP mixing */
 # define LMD_CONVEC        /* use to add convective mixing due to shear instability */
 # define LMD_DDMIX         /* use to add double-diffusive mixing */
-# define LMD_NONLOCAL      /* use if nonlocal transport */
+# undef LMD_NONLOCAL      /* use if nonlocal transport */
 # define LMD_RIMIX         /* use to add diffusivity due to shear instability */
 # undef LMD_SHAPIRO       /* use if Shapiro filtering boundary layer depth */
 # define LMD_SKPP          /* use if surface boundary layer KPP mixing */
@@ -127,7 +127,8 @@
 # undef ANA_WINDS         /* analytical surface winds */
 # define ICEBERGS         /* freshwater fluxes from iceberg melt */
 # define PRECIP_NOINTERP  /* don't interpolate ECMWF precipitation in time */
-# define EMINUSP           /* turn ON internal calculation of E-P */
+# define SEPARATE_EVAP    /* read evaporation, separate to precipitation */
+# undef  EMINUSP           /* turn ON internal calculation of E-P */
 # define ANA_SRFLUX        /* analytical surface shortwave radiation flux */
 # define ALBEDO            /* use albedo equation for shortwave radiation */
 # undef  CLOUDS      

@@ -434,6 +434,21 @@
 #  endif
      &                FORCES(ng) % rainG)
       IF (exit_flag.ne.NoError) RETURN
+#  ifdef SEPARATE_EVAP
+!
+!-----------------------------------------------------------------------
+!  Evaporation.
+!-----------------------------------------------------------------------
+!
+      CALL get_2dfld (ng, iNLM, idevap, ncFRCid(idevap,ng),             &
+     &                nFfiles(ng), FRC(1,ng), update(1),                &
+     &                LBi, UBi, LBj, UBj, 2, 1,                         &
+#   ifdef MASKING
+     &                GRID(ng) % rmask,                                 &
+#   endif
+     &                FORCES(ng) % evapG)
+      IF (exit_flag.ne.NoError) RETURN
+#  endif
 #  ifdef ICEBERGS
 !
 !-----------------------------------------------------------------------
@@ -554,7 +569,8 @@
      &                FORCES(ng) % stflxG(:,:,:,isalt))
       IF (exit_flag.ne.NoError) RETURN
 
-#  elif !(defined ANA_SSFLUX || defined EMINUSP || defined SRELAXATION)
+#  elif !(defined ANA_SSFLUX || defined EMINUSP || defined SRELAXATION || \
+          defined SEPARATE_EVAP)
 !
 !-----------------------------------------------------------------------
 !  Surface net freshwater flux: E-P.

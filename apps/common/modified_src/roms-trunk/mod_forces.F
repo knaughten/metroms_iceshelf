@@ -104,6 +104,8 @@
 !  Rain fall rate.                                                     !
 !                                                                      !
 !  evap         Evaporation rate (kg/m2/s).                            !
+!  evapG        Latest two-time snapshots of input "evaporation"       !
+!                 gridded data used for interpolation.                 !
 !  rain         Rain fall rate (kg/m2/s).                              !
 !  rainG        Latest two-time snapshots of input "rain" grided       !
 !                 data used for interpolation.                         !
@@ -299,6 +301,11 @@
 #  ifdef EMINUSP
           real(r8), pointer :: EminusP(:,:)
           real(r8), pointer :: evap(:,:)
+#  else
+#   ifdef SEPARATE_EVAP
+          real(r8), pointer :: evap(:,:)
+          real(r8), pointer :: evapG(:,:,:)
+#   endif
 #  endif
 # endif
 
@@ -618,6 +625,11 @@
 #  ifdef EMINUSP
       allocate ( FORCES(ng) % EminusP(LBi:UBi,LBj:UBj) )
       allocate ( FORCES(ng) % evap(LBi:UBi,LBj:UBj) )
+#  else
+#   ifdef SEPARATE_EVAP
+      allocate ( FORCES(ng) % evap(LBi:UBi,LBj:UBj) )
+      allocate ( FORCES(ng) % evapG(LBi:UBi,LBj:UBj,2) )
+#   endif
 #  endif
 # endif
 
@@ -964,6 +976,10 @@
 #  ifdef EMINUSP
             FORCES(ng) % EminusP(i,j) = IniVal
             FORCES(ng) % evap(i,j) = IniVal
+#  else
+#   ifdef SEPARATE_EVAP
+            FORCES(ng) % evap(i,j) = IniVal
+#   endif
 #  endif
 # endif
 # if !defined LONGWAVE && defined BULK_FLUXES
@@ -995,6 +1011,10 @@
 # ifdef ICEBERGS
             FORCES(ng) % icebergsG(i,j,1) = IniVal
             FORCES(ng) % icebergsG(i,j,2) = IniVal
+# endif
+# ifdef SEPARATE_EVAP
+            FORCES(ng) % evapG(i,j,1) = IniVal
+            FORCES(ng) % evapG(i,j,2) = IniVal
 # endif
 # ifdef QCORRECTION
             FORCES(ng) % dqdt(i,j) = IniVal

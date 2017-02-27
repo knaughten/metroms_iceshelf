@@ -1480,10 +1480,10 @@
   'evaporation rate'
   'kilogram meter-2 second-1'                      ! [kg m2/s]
   'evaporation, scalar, series'
-  'evap_time'
+  'time'
   'idevap'
   'r2dvar'
-  1.0d0                                            ! 1/rhow (0.001 m3/kg) if m/s
+  0.023148d0                                    ! ERA files are m/12h
 
 'Uwind'                                            ! Input
   'surface u-wind component'

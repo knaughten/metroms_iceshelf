@@ -129,6 +129,10 @@
 # ifdef EMINUSP
      &                     FORCES(ng) % EminusP,                        &
      &                     FORCES(ng) % evap,                           &
+# else
+#  ifdef SEPARATE_EVAP
+     &                     FORCES(ng) % evap,                           &
+#  endif     
 # endif
      &                     FORCES(ng) % sustr,                          &
      &                     FORCES(ng) % svstr)
@@ -173,6 +177,10 @@
      &                           srflx, stflx,                          &
 # ifdef EMINUSP
      &                           EminusP, evap,                         &
+# else
+#  ifdef SEPARATE_EVAP
+     &                           evap,                                  &
+#  endif
 # endif
      &                           sustr, svstr)
 !***********************************************************************
@@ -239,6 +247,10 @@
 #  ifdef EMINUSP
       real(r8), intent(out) :: EminusP(LBi:,LBj:)
       real(r8), intent(out) :: evap(LBi:,LBj:)
+#  else
+#   ifdef SEPARATE_EVAP
+      real(r8), intent(in) :: evap(LBi:,LBj:)
+#   endif
 #  endif
       real(r8), intent(out) :: sustr(LBi:,LBj:)
       real(r8), intent(out) :: svstr(LBi:,LBj:)
@@ -289,6 +301,10 @@
 #  ifdef EMINUSP
       real(r8), intent(out) :: EminusP(LBi:UBi,LBj:UBj)
       real(r8), intent(out) :: evap(LBi:UBi,LBj:UBj)
+#  else
+#   ifdef SEPARATE_EVAP
+      real(r8), intent(in) :: evap(LBi:UBi,LBj:UBj)
+#   endif
 #  endif
       real(r8), intent(out) :: sustr(LBi:UBi,LBj:UBj)
       real(r8), intent(out) :: svstr(LBi:UBi,LBj:UBj)
@@ -757,7 +773,7 @@
           Hsr=rain(i,j)*wet_bulb*blk_Cpw*                               &
      &        ((TseaC(i)-TairC(i))+(Qsea(i)-Q(i))*Hlv(i,j)/blk_Cpa)
 # endif
-          SHeat(i,j)=(Hs+Hsr)
+        SHeat(i,j)=(Hs+Hsr)
 # ifdef MASKING
           SHeat(i,j)=SHeat(i,j)*rmask(i,j)
 # endif
@@ -869,6 +885,20 @@
           stflx(i,j,isalt)=stflx(i,j,isalt)*rmask_wet(i,j)
 #  endif
           EminusP(i,j)=stflx(i,j,isalt)
+# else
+#  ifdef SEPARATE_EVAP
+#    ifdef ICEBERGS
+          stflx(i,j,isalt)=cff*(evap(i,j)-rain(i,j)-icebergs(i,j))
+#    else
+          stflx(i,j,isalt)=cff*(evap(i,j)-rain(i,j))
+#    endif
+#    ifdef MASKING
+          stflx(i,j,isalt)=stflx(i,j,isalt)*rmask(i,j)
+#    endif
+#    ifdef WET_DRY
+          stflx(i,j,isalt)=stflx(i,j,isalt)*rmask_wet(i,j)
+#    endif
+#  endif
 # endif
         END DO
       END DO
@@ -926,6 +956,12 @@
         CALL exchange_r2d_tile (ng, tile,                               &
      &                          LBi, UBi, LBj, UBj,                     &
      &                          stflx(:,:,isalt))
+# else
+#  ifdef SEPARATE_EVAP
+        CALL exchange_r2d_tile (ng, tile,                               &
+     &                          LBi, UBi, LBj, UBj,                     &
+     &                          stflx(:,:,isalt))
+#  endif
 # endif
         CALL exchange_u2d_tile (ng, tile,                               &
      &                          LBi, UBi, LBj, UBj,                     &
@@ -949,6 +985,14 @@
      &                    EWperiodic(ng), NSperiodic(ng),               &
      &                    evap, EminusP,                                &
      &                    stflx(:,:,isalt))
+#  else
+#   ifdef SEPARATE_EVAP
+      CALL mp_exchange2d (ng, tile, iNLM, 3,                            &
+     &                    LBi, UBi, LBj, UBj,                           &
+     &                    NghostPoints,                                 &
+     &                    EWperiodic(ng), NSperiodic(ng),               &
+     &                    stflx(:,:,isalt))
+#   endif
 #  endif
       CALL mp_exchange2d (ng, tile, iNLM, 2,                            &
      &                    LBi, UBi, LBj, UBj,                           &

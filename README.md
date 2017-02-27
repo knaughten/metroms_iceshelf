@@ -13,7 +13,9 @@ Kaitlin's additions to metroms:
 
 -Freshwater flux from icebergs (option ICEBERGS)
 
--Non-interpolation of 12-hour ERA-Interim precipitation forcing (option PRECIP_NOINTERP)
+-Read evaporation rather than compute it (option SEPARATE_EVAP)
+
+-Non-interpolation of 12-hour ERA-Interim precipitation forcing, and evaporation too if SEPARATE_EVAP is on (option PRECIP_NOINTERP)
 
 -Time-averaging of ROMS-to-CICE coupling fields over the coupling interval
 
