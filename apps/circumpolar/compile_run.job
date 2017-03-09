@@ -1,7 +1,7 @@
 #!/bin/bash
 #PBS -P y99
 #PBS -q express
-#PBS -l walltime=1:00:00,software=intel-fc,ncpus=576,mem=576gb
+#PBS -l walltime=2:00:00,software=intel-fc,ncpus=608,mem=608gb
 #PBS -j oe
 
 module load intel-fc
@@ -23,8 +23,8 @@ source myenv.bash
 if [ ! -d /short/m68/kaa561/metroms_iceshelf/tmproms/MCT ]; then
     ./build_mct.sh
 fi
-./build_cice.sh circumpolar 64 1  
-./build_roms.sh circumpolar -j 576
+./build_cice.sh circumpolar 96 1  
+./build_roms.sh circumpolar -j 608
 cd $PBS_O_WORKDIR
 if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then 
    python circumpolar.py

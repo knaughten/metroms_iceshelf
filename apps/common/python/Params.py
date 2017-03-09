@@ -388,7 +388,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -490,7 +490,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -528,14 +528,14 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
@@ -630,14 +630,14 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
@@ -732,14 +732,14 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
@@ -824,7 +824,7 @@ class Params(object):
             ['GRDTHETAS',"4.0d0"],
             ['GRDTHETAB',"0.9d0"],
             ['GRDTCLINE',"40.0d0"],            
-            ['_TNU2_',"500.0d0 500.0d0"],
+            ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
             ['_VISC4_',"1.0d+3"],
@@ -834,14 +834,14 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
@@ -936,14 +936,14 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
@@ -1028,7 +1028,7 @@ class Params(object):
             ['GRDTHETAS',"4.0d0"],
             ['GRDTHETAB',"0.9d0"],
             ['GRDTCLINE',"40.0d0"],            
-            ['_TNU2_',"500.0d0 500.0d0"],
+            ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
             ['_VISC4_',"1.0d+3"],
@@ -1038,14 +1038,14 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],

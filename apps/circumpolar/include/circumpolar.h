@@ -87,9 +87,9 @@
 # define LMD_BKPP          /* use if bottom boundary layer KPP mixing */
 # define LMD_CONVEC        /* use to add convective mixing due to shear instability */
 # define LMD_DDMIX         /* use to add double-diffusive mixing */
-# undef LMD_NONLOCAL      /* use if nonlocal transport */
+# define LMD_NONLOCAL      /* use if nonlocal transport */
 # define LMD_RIMIX         /* use to add diffusivity due to shear instability */
-# undef LMD_SHAPIRO       /* use if Shapiro filtering boundary layer depth */
+# define LMD_SHAPIRO       /* use if Shapiro filtering boundary layer depth */
 # define LMD_SKPP          /* use if surface boundary layer KPP mixing */
 #endif
 
