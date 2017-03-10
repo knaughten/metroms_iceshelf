@@ -324,7 +324,15 @@
   
 'freshAI'
   'fresh_ice'
-  'Freshwater flux from ice model'
+  'Freshwater flux from ice model, not including ice formation'
+  'kg /s'
+  'r2dvar'
+  0.0d0
+  1.0d0
+
+'freshiAI'
+  'freshi_ice'
+  'Freshwater flux from ice formation'
   'kg /s'
   'r2dvar'
   0.0d0
@@ -332,7 +340,15 @@
 
 'fsaltAI'
   'fsalt_ice'
-  'Salt flux from ice model'
+  'Salt flux from ice model, not including ice formation'
+  'kg /s'
+  'r2dvar'
+  0.0d0
+  1.0d0
+
+'fsaltiAI'
+  'fsalti_ice'
+  'Salt flux from ice formation'
   'kg /s'
   'r2dvar'
   0.0d0

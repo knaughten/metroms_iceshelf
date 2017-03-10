@@ -65,6 +65,8 @@
 #define SOLVE3D            /* define if solving 3D primitive equations */
 #undef  BODYFORCE          /* define if applying stresses as bodyforces */
 #define RI_SPLINES
+#define SPLINES_VDIFF
+#define SPLINES_VVISC
 #define MASKING            /* define if there is land in the domain */
 #define AVERAGES           /* define if writing out time-averaged data */
 #undef  AVERAGES_DETIDE    /*use if writing out NLM time-averaged detided fields*/

@@ -22,12 +22,12 @@ icecpu=96
 app='circumpolar'
 
 start_date = datetime(1992,01,01,00)
-end_date   = datetime(2002,01,01,00)
+end_date   = datetime(1992,01,06,00)
 
 # Initial run
-#circparams=Params(app,xcpu,ycpu,start_date,end_date,nrrec=0,cicecpu=icecpu,restart=False)
+circparams=Params(app,xcpu,ycpu,start_date,end_date,nrrec=0,cicecpu=icecpu,restart=False)
 # Restart run
-circparams=Params(app,xcpu,ycpu,start_date,end_date,nrrec=-1,cicecpu=icecpu,restart=True)
+#circparams=Params(app,xcpu,ycpu,start_date,end_date,nrrec=-1,cicecpu=icecpu,restart=True)
 
 modelrun=ModelRun(circparams)
 

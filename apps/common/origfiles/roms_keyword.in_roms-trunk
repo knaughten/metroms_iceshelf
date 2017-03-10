@@ -1770,7 +1770,7 @@ TimeInterval = COUPLINGTIMEI2O
 !       Export(...) = NONE
 
  Nexport(ocean) = 6
- Nexport(cice)  = 7
+ Nexport(cice)  = 9
 
   Export(ocean) = SST  \
                   SSS  \
@@ -1803,7 +1803,9 @@ TimeInterval = COUPLINGTIMEI2O
 
   Export(cice) =  AICE  \
                   freshAI \
-                  fsaltAI
+                  freshiAI \
+                  fsaltAI \
+                  fsaltiAI \
                   fhocnAI \
                   fswthruAI \
                   strocnx \
@@ -1816,12 +1818,14 @@ TimeInterval = COUPLINGTIMEI2O
 !      Nimport(...) = 0
 !       Import(...) = NONE
 
- Nimport(ocean) = 7
+ Nimport(ocean) = 9
  Nimport(cice)  = 6
 
   Import(ocean) = AICE \
                   freshAI \
-                  fsaltAI
+                  freshiAI \
+                  fsaltAI \
+                  fsaltiAI \
                   fhocnAI \
                   fswthruAI \
                   strocnx \

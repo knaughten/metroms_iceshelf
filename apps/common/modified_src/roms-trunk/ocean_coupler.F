@@ -478,7 +478,7 @@
 #endif
 
 
-        CASE ('freshAI')        ! Fresh water flux
+        CASE ('freshAI')        ! Fresh water flux, not including ice formation
 
            CALL AttrVect_exportRAttr (cice2ocn_AV, TRIM(code), A, Asize)
            Iimport=Iimport+1
@@ -498,7 +498,27 @@
      &                         ICE(ng)%freshAI,                         &
      &                         status)
 
-        CASE ('fsaltAI')        ! Salt flux
+        CASE ('freshiAI')        ! Fresh water flux from ice formation
+
+           CALL AttrVect_exportRAttr (cice2ocn_AV, TRIM(code), A, Asize)
+           Iimport=Iimport+1
+#ifdef REPORT_COUPLING_ALL
+           write(stdout,*) 'ROMS rank ', MyRank,                        &
+     &          ' received ',trim(code),' field (max/min): ',           &
+     &          maxval(A),' ',minval(A),' gtype : ', gtype
+#endif
+           scale=1.0_r8
+           add_offset=0.0_r8
+           CALL ROMS_import2d (ng, tile,                                &
+     &                         id, gtype, scale, add_offset,            &
+     &                         Asize, A,                                &
+     &                         IstrR, IendR, JstrR, JendR,              &
+     &                         LBi, UBi, LBj, UBj,                      &
+     &                         Fields(id)%ImpMin, Fields(id)%ImpMax,    &
+     &                         ICE(ng)%freshiAI,                        &
+     &                         status)
+
+        CASE ('fsaltAI')        ! Salt flux, not including ice formation
 
            CALL AttrVect_exportRAttr (cice2ocn_AV, TRIM(code), A, Asize)
            Iimport=Iimport+1
@@ -516,6 +536,26 @@
      &                         LBi, UBi, LBj, UBj,                      &
      &                         Fields(id)%ImpMin, Fields(id)%ImpMax,    &
      &                         ICE(ng)%fsaltAI,                         &
+     &                         status)
+
+        CASE ('fsaltiAI')        ! Salt flux from ice formation
+
+           CALL AttrVect_exportRAttr (cice2ocn_AV, TRIM(code), A, Asize)
+           Iimport=Iimport+1
+#ifdef REPORT_COUPLING_ALL
+           write(stdout,*) 'ROMS rank ', MyRank,                        &
+     &          ' received ',trim(code),' field (max/min): ',           &
+     &          maxval(A),' ',minval(A),' gtype : ', gtype
+#endif
+           scale=1.0_r8
+           add_offset=0.0_r8
+           CALL ROMS_import2d (ng, tile,                                &
+     &                         id, gtype, scale, add_offset,            &
+     &                         Asize, A,                                &
+     &                         IstrR, IendR, JstrR, JendR,              &
+     &                         LBi, UBi, LBj, UBj,                      &
+     &                         Fields(id)%ImpMin, Fields(id)%ImpMax,    &
+     &                         ICE(ng)%fsaltiAI,                        &
      &                         status)
 
         CASE ('fhocnAI')        ! Nonradiative heat flux

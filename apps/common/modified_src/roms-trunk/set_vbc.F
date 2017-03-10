@@ -85,7 +85,9 @@
      &                     ICE(ng) % fhocnAI,                           &
      &                     ICE(ng) % fswthruAI,                         &
      &                     ICE(ng) % freshAI,                           &
+     &                     ICE(ng) % freshiAI,                          &
      &                     ICE(ng) % fsaltAI,                           &
+     &                     ICE(ng) % fsaltiAI,                          &
      &                     ICE(ng) % stru,                              &
      &                     ICE(ng) % strv,                              &
 # endif
@@ -139,7 +141,9 @@
      &                         fhocnAI,                                 &
      &                         fswthruAI,                               &
      &                         freshAI,                                 &
+     &                         freshiAI,                                &
      &                         fsaltAI,                                 &
+     &                         fsaltiAI,                                &
      &                         stru,                                    &
      &                         strv,                                    &
 #  endif
@@ -204,7 +208,9 @@
       real(r8), intent(in) :: fhocnAI(LBi:,LBj:)
       real(r8), intent(in) :: fswthruAI(LBi:,LBj:)
       real(r8), intent(in) :: freshAI(LBi:,LBj:)
+      real(r8), intent(in) :: freshiAI(LBi:,LBj:)
       real(r8), intent(in) :: fsaltAI(LBi:,LBj:)
+      real(r8), intent(in) :: fsaltiAI(LBi:,LBj:)
       real(r8), intent(in) :: stru(LBi:,LBj:)
       real(r8), intent(in) :: strv(LBi:,LBj:)
 #  endif
@@ -251,7 +257,9 @@
       real(r8), intent(in) :: fhocnAI(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: fswthruAI(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: freshAI(LBi:UBi,LBj:UBj)
+      real(r8), intent(in) :: freshiAI(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: fsaltAI(LBi:UBi,LBj:UBj)
+      real(r8), intent(in) :: fsaltiAI(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: stru(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: strv(LBi:UBi,LBj:UBj)
 #  endif
@@ -361,9 +369,10 @@
 
 ! Calculation of virtual salt flux 
           stflx(i,j,isalt) = stflx(i,j,isalt)*(1.0_r8-aice(i,j))        &
-     &         -cff*( freshAI(i,j)*t(i,j,N(ng),nrhs,isalt)              &
+     &         -cff*( (freshAI(i,j)+freshiAI(i,j))*                     &
+     &                t(i,j,N(ng),nrhs,isalt)              &
 ! Fsalt is given as kg/s/m^2. Should be converted to salinity (factor 1000).
-     &         -fsaltAI(i,j)*1000.0_r8)  
+     &         -(fsaltAI(i,j)+fsaltiAI(i,j))*1000.0_r8)  
 
           ! merge with stress from ice model
           sustr(i,j)=sustr(i,j)*(1.0_r8-aice_u(i,j))+stru(i,j)*cff

@@ -15,8 +15,8 @@
                 accumulate_i2o_fields,                                  &
                 write_restart_accum_fields, read_restart_accum_fields,  &
                 update_accum_clock, mean_i2o_fields, zero_i2o_fields,   &
-                idaice, idfresh, idfsalt, idfhocn, idfswthru,           &
-                idstrocnx, idstrocny, accum_i2o_fields
+                idaice, idfresh, idfreshi, idfsalt, idfsalti, idfhocn,  &
+                idfswthru, idstrocnx, idstrocny, accum_i2o_fields
 
 !jd Time-accumulation of coupling fields. 
        real (kind=dbl_kind),  &
@@ -41,12 +41,14 @@
 
       subroutine first_accum_fields()
       use ice_state, only: aice
-      use ice_flux, only: fresh_ai, fsalt_ai,&
+      use ice_flux, only: fresh_ai, freshi_ai, fsalt_ai, fsalti_ai, &
          fhocn_ai,fswthru_ai, strocnxT, strocnyT
 
       accum_i2o_fields(:,:,idaice,:) = aice(:,:,:)
       accum_i2o_fields(:,:,idfresh,:) = fresh_ai(:,:,:)
+      accum_i2o_fields(:,:,idfreshi,:) = freshi_ai(:,:,:)
       accum_i2o_fields(:,:,idfsalt,:) = fsalt_ai(:,:,:)
+      accum_i2o_fields(:,:,idfsalti,:) = fsalti_ai(:,:,:)
       accum_i2o_fields(:,:,idfhocn,:) = fhocn_ai(:,:,:)
       accum_i2o_fields(:,:,idfswthru,:) = fswthru_ai(:,:,:)
       accum_i2o_fields(:,:,idstrocnx,:) = strocnxT(:,:,:)*aice(:,:,:)
@@ -83,7 +85,7 @@
 
       subroutine accumulate_i2o_fields(dt)
       use ice_state, only: aice
-      use ice_flux, only: fresh_ai, fsalt_ai,&
+      use ice_flux, only: fresh_ai, freshi_ai, fsalt_ai, fsalti_ai, &
          fhocn_ai,fswthru_ai, strocnxT, strocnyT
 
       real(kind=dbl_kind), intent(in) :: dt
@@ -91,7 +93,9 @@
 
       call accum_field(idaice, aice, dt)
       call accum_field(idfresh, fresh_ai, dt)
+      call accum_field(idfreshi, freshi_ai, dt)
       call accum_field(idfsalt, fsalt_ai, dt)
+      call accum_field(idfsalti, fsalti_ai, dt)
       call accum_field(idfhocn, fhocn_ai, dt)
       call accum_field(idfswthru, fswthru_ai, dt)
       work=strocnxT*aice
@@ -152,8 +156,14 @@
                   accum_i2o_fields(:,:,idfresh,:),'ruf8', & 
                   'accum_fresh',1,diag)
       call write_restart_field(nu_dump_accum,0, &
+                  accum_i2o_fields(:,:,idfreshi,:),'ruf8', & 
+                  'accum_freshi',1,diag)
+      call write_restart_field(nu_dump_accum,0, &
                   accum_i2o_fields(:,:,idfsalt,:),'ruf8', & 
                   'accum_fsalt',1,diag)
+      call write_restart_field(nu_dump_accum,0, &
+                  accum_i2o_fields(:,:,idfsalti,:),'ruf8', & 
+                  'accum_fsalti',1,diag)
       call write_restart_field(nu_dump_accum,0, &
                   accum_i2o_fields(:,:,idfhocn,:),'ruf8', & 
                   'accum_fhocn',1,diag)
@@ -195,8 +205,14 @@
                   accum_i2o_fields(:,:,idfresh,:),'ruf8', & 
                   'accum_fresh',1,diag)
       call read_restart_field(nu_restart_accum,0, &
+                  accum_i2o_fields(:,:,idfreshi,:),'ruf8', & 
+                  'accum_freshi',1,diag)
+      call read_restart_field(nu_restart_accum,0, &
                   accum_i2o_fields(:,:,idfsalt,:),'ruf8', & 
                   'accum_fsalt',1,diag)
+      call read_restart_field(nu_restart_accum,0, &
+                  accum_i2o_fields(:,:,idfsalti,:),'ruf8', & 
+                  'accum_fsalti',1,diag)
       call read_restart_field(nu_restart_accum,0, &
                   accum_i2o_fields(:,:,idfhocn,:),'ruf8', & 
                   'accum_fhocn',1,diag)

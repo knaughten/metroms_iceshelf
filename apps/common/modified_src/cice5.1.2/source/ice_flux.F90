@@ -205,7 +205,9 @@
       real (kind=dbl_kind), dimension (nx_block,ny_block,max_blocks), public :: &
          fpond   , & ! fresh water flux to ponds (kg/m^2/s)
          fresh   , & ! fresh water flux to ocean (kg/m^2/s)
+	 freshi  , & ! fresh water flux to ocean from ice formation (kg/m^2/s)
          fsalt   , & ! salt flux to ocean (kg/m^2/s)
+	 fsalti  , & ! salt flux to ocean from ice formation (kg/m^2/s)
          fhocn   , & ! net heat flux to ocean (W/m^2)
          fswthru     ! shortwave penetrating to ocean (W/m^2)
 
@@ -297,7 +299,9 @@
     
       real (kind=dbl_kind), dimension (nx_block,ny_block,max_blocks), public :: &
          fresh_ai, & ! fresh water flux to ocean (kg/m^2/s)
+	 freshi_ai, & ! fresh water flux to ocean from ice formation (kg/m^2/s)
          fsalt_ai, & ! salt flux to ocean (kg/m^2/s)
+	 fsalti_ai, & ! salt flux to ocean from ice formation (kg/m^2/s)
          fhocn_ai, & ! net heat flux to ocean (W/m^2)
          fswthru_ai  ! shortwave penetrating to ocean (W/m^2)
 
@@ -472,7 +476,9 @@
       strocnxT(:,:,:) = c0    ! ice-ocean stress, x-direction (T-cell)
       strocnyT(:,:,:) = c0    ! ice-ocean stress, y-direction (T-cell)
       fresh   (:,:,:) = c0
+      freshi  (:,:,:) = c0
       fsalt   (:,:,:) = c0
+      fsalti  (:,:,:) = c0
       fhocn   (:,:,:) = c0
       fswthru (:,:,:) = c0
       fresh_da(:,:,:) = c0    ! data assimilation
@@ -541,7 +547,9 @@
       !-----------------------------------------------------------------
 
       fresh    (:,:,:)   = c0
+      freshi   (:,:,:)   = c0
       fsalt    (:,:,:)   = c0
+      fsalti   (:,:,:)   = c0
       fhocn    (:,:,:)   = c0
       fswthru  (:,:,:)   = c0
       faero_ocn(:,:,:,:) = c0
@@ -590,7 +598,9 @@
       fsensn    (:,:,:,:) = c0
       fpond     (:,:,:) = c0
       fresh_ai  (:,:,:) = c0
+      freshi_ai (:,:,:) = c0
       fsalt_ai  (:,:,:) = c0
+      fsalti_ai (:,:,:) = c0
       fhocn_ai  (:,:,:) = c0
       fswthru_ai(:,:,:) = c0
       albice (:,:,:) = c0
@@ -685,7 +695,8 @@
                                fswabsn,  flwoutn,    &
                                evapn,                &
                                Trefn,    Qrefn,      &
-                               freshn,   fsaltn,     &
+			       freshn,   freshin,    &
+			       fsaltn,   fsaltin,    &
                                fhocnn,   fswthrun,   &
                                strairxT, strairyT,   &  
                                Cdn_atm_ratio,        &
@@ -694,7 +705,8 @@
                                fswabs,   flwout,     &
                                evap,                 & 
                                Tref,     Qref,       &
-                               fresh,    fsalt,      & 
+			       fresh,    freshi,     &
+			       fsalt,    fsalti,     &
                                fhocn,    fswthru,    &
                                melttn, meltsn, meltbn, congeln, snoicen, &
                                meltt,  melts,        &
@@ -728,7 +740,9 @@
           Trefn   , & ! air tmp reference level         (K)
           Qrefn   , & ! air sp hum reference level      (kg/kg)
           freshn  , & ! fresh water flux to ocean       (kg/m2/s)
+	  freshin , & ! fresh water flux to ocean from ice formation (kg/m2/s)
           fsaltn  , & ! salt flux to ocean              (kg/m2/s)
+	  fsaltin , & ! salt flux to ocean from ice formation (kg/m2/s)
           fhocnn  , & ! actual ocn/ice heat flx         (W/m**2)
           fswthrun, & ! sw radiation through ice bot    (W/m**2)
           melttn  , & ! top ice melt                    (m)
@@ -756,7 +770,9 @@
           Tref    , & ! air tmp reference level         (K)
           Qref    , & ! air sp hum reference level      (kg/kg)
           fresh   , & ! fresh water flux to ocean       (kg/m2/s)
+	  freshi  , & ! fresh water flux to ocean from ice formation (kg/m2/s)
           fsalt   , & ! salt flux to ocean              (kg/m2/s)
+	  fsalti  , & ! salt flux to ocean from ice formation (kg/m2/s)
           fhocn   , & ! actual ocn/ice heat flx         (W/m**2)
           fswthru , & ! sw radiation through ice bot    (W/m**2)
           meltt   , & ! top ice melt                    (m)
@@ -809,7 +825,9 @@
          ! ocean fluxes
 
          fresh    (i,j) = fresh    (i,j) + freshn  (i,j)*aicen(i,j)
+	 freshi   (i,j) = freshi   (i,j) + freshin (i,j)*aicen(i,j)
          fsalt    (i,j) = fsalt    (i,j) + fsaltn  (i,j)*aicen(i,j)
+	 fsalti   (i,j) = fsalti   (i,j) + fsaltin (i,j)*aicen(i,j)
          fhocn    (i,j) = fhocn    (i,j) + fhocnn  (i,j)*aicen(i,j)
          fswthru  (i,j) = fswthru  (i,j) + fswthrun(i,j)*aicen(i,j)
 
@@ -841,7 +859,8 @@
                                fswabs,   flwout,   &
                                evap,               &
                                Tref,     Qref,     &
-                               fresh,    fsalt,    &
+			       fresh,    freshi,   &
+			       fsalt,    fsalti,   &
                                fhocn,    fswthru,  &
                                faero_ocn,          &
                                alvdr,    alidr,    &
@@ -882,7 +901,9 @@
           Tref    , & ! air tmp reference level         (K)
           Qref    , & ! air sp hum reference level      (kg/kg)
           fresh   , & ! fresh water flux to ocean       (kg/m2/s)
+	  freshi  , & ! fresh water flux to ocean from ice formation (kg/m2/s)
           fsalt   , & ! salt flux to ocean              (kg/m2/s)
+	  fsalti  , & ! salt flux to ocean from ice formation (kg/m2/s)
           fhocn   , & ! actual ocn/ice heat flx         (W/m**2)
           fswthru , & ! sw radiation through ice bot    (W/m**2)
           alvdr   , & ! visible, direct   (fraction)
@@ -935,7 +956,9 @@
                Uref    (i,j) = Uref    (i,j) * ar
             endif
             fresh   (i,j) = fresh   (i,j) * ar
+	    freshi  (i,j) = freshi  (i,j) * ar
             fsalt   (i,j) = fsalt   (i,j) * ar
+	    fsalti  (i,j) = fsalti  (i,j) * ar
             fhocn   (i,j) = fhocn   (i,j) * ar
             fswthru (i,j) = fswthru (i,j) * ar
             alvdr   (i,j) = alvdr   (i,j) * ar
@@ -959,7 +982,9 @@
                Uref    (i,j) = wind(i,j)
             endif
             fresh   (i,j) = c0
+	    freshi  (i,j) = c0
             fsalt   (i,j) = c0
+	    fsalti  (i,j) = c0
             fhocn   (i,j) = c0
             fswthru (i,j) = c0
             alvdr   (i,j) = c0  ! zero out albedo where ice is absent

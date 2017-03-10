@@ -306,7 +306,7 @@
       use ice_flux, only: alvdf, alidf, alvdr, alidr, albice, albsno, &
           albpnd, albcnt, apeff_ai, coszen, fpond, fresh, l_mpond_fresh, &
           alvdf_ai, alidf_ai, alvdr_ai, alidr_ai, fhocn_ai, &
-          fresh_ai, fsalt_ai, fsalt, &
+          fresh_ai, fsalt_ai, fsalt, freshi, freshi_ai, fsalti, fsalti_ai, &
           fswthru_ai, fhocn, fswthru, scale_factor, &
           swvdr, swidr, swvdf, swidf, Tf, Tair, Qa, strairxT, strairyt, &
           fsens, flat, fswabs, flwout, evap, Tref, Qref, faero_ocn, &
@@ -420,7 +420,9 @@
             alvdr_ai  (i,j,iblk) = alvdr  (i,j,iblk)
             alidr_ai  (i,j,iblk) = alidr  (i,j,iblk)
             fresh_ai  (i,j,iblk) = fresh  (i,j,iblk)
+	    freshi_ai (i,j,iblk) = freshi (i,j,iblk)
             fsalt_ai  (i,j,iblk) = fsalt  (i,j,iblk)
+	    fsalti_ai (i,j,iblk) = fsalti (i,j,iblk)
             fhocn_ai  (i,j,iblk) = fhocn  (i,j,iblk)
             fswthru_ai(i,j,iblk) = fswthru(i,j,iblk)
 
@@ -457,7 +459,8 @@
                             fswabs   (:,:,iblk), flwout  (:,:,iblk), &
                             evap     (:,:,iblk),                     &
                             Tref     (:,:,iblk), Qref    (:,:,iblk), &
-                            fresh    (:,:,iblk), fsalt   (:,:,iblk), &
+			    fresh    (:,:,iblk), freshi  (:,:,iblk), &
+			    fsalt    (:,:,iblk), fsalti  (:,:,iblk), &
                             fhocn    (:,:,iblk), fswthru (:,:,iblk), &
                             faero_ocn(:,:,:,iblk),                   &
                             alvdr    (:,:,iblk), alidr   (:,:,iblk), &

@@ -14,8 +14,8 @@ module CICE_MCT
   use ice_boundary, only: ice_HaloUpdate
   use ice_fileunits, only: ice_stdout, ice_stderr ! these might be the same
 
-  use ice_accum_shared, only: idaice, idfresh, idfsalt, idfhocn, idfswthru, &
-       idstrocnx, idstrocny, accum_time
+  use ice_accum_shared, only: idaice, idfresh, idfreshi, idfsalt, idfsalti, &
+       idfhocn, idfswthru, idstrocnx, idstrocny, accum_time
   use ice_accum_fields, only: accum_i2o_fields, mean_i2o_fields, zero_i2o_fields
   use ice_timers, only: ice_timer_start, ice_timer_stop,ice_timer_print,&
        timer_cplrecv, timer_rcvsnd, timer_cplsend,timer_sndrcv,timer_tmp
@@ -83,7 +83,7 @@ module CICE_MCT
   character (len=240) :: &
        importList = 'SST:SSS:FRZMLT:u:v:SSH', &
        exportList = &
-       'AICE:freshAI:fsaltAI:fhocnAI:fswthruAI:strocnx:strocny'
+       'AICE:freshAI:freshiAI:fsaltAI:fsaltiAI:fhocnAI:fswthruAI:strocnx:strocny'
 
   integer (int_kind), public :: &
        CICEid,                   &
@@ -251,8 +251,12 @@ contains
        call ice2ocn_send_field(accum_i2o_fields(:,:,idaice,:),'AICE')
 ! Exporting fresh_ai
        call ice2ocn_send_field(accum_i2o_fields(:,:,idfresh,:),'freshAI')
+! Exporting freshi_ai
+       call ice2ocn_send_field(accum_i2o_fields(:,:,idfreshi,:),'freshiAI')
 ! Exporting fsalt_ai
        call ice2ocn_send_field(accum_i2o_fields(:,:,idfsalt,:),'fsaltAI')
+! Exporting fsalti_ai
+       call ice2ocn_send_field(accum_i2o_fields(:,:,idfsalti,:),'fsaltiAI')
 ! Exporting fhocn_ai
        call ice2ocn_send_field(accum_i2o_fields(:,:,idfhocn,:),'fhocnAI')
 ! Exporting fswthru_ai
