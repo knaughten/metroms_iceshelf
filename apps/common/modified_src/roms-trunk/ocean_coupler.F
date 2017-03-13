@@ -1013,7 +1013,7 @@
 !
 !  Deallocate communication arrays.
 !
-      deallocate (A,uw,vw)
+      deallocate (A,uw,vw,frzmlt)
 
 #ifdef PROFILE
       CALL wclock_off (ng, iNLM, 36)

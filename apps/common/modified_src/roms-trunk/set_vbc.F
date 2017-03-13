@@ -368,11 +368,20 @@
      &         (fswthruAI(i,j)+fhocnAI(i,j))*cff1
 
 ! Calculation of virtual salt flux 
+#   ifdef BRINE_REJECTION
+! Only include salt fluxes from sea ice melt, precip, evap
+! Fluxes from sea ice formation are dealt with in brine_rejection
+          stflx(i,j,isalt) = stflx(i,j,isalt)*(1.0_r8-aice(i,j))        &
+     &         -cff*( freshAI(i,j)*t(i,j,N(ng),nrhs,isalt)              &
+! Fsalt is given as kg/s/m^2. Should be converted to salinity (factor 1000).
+     &         -fsaltAI(i,j)*1000.0_r8)
+#   else  
           stflx(i,j,isalt) = stflx(i,j,isalt)*(1.0_r8-aice(i,j))        &
      &         -cff*( (freshAI(i,j)+freshiAI(i,j))*                     &
-     &                t(i,j,N(ng),nrhs,isalt)              &
+     &                t(i,j,N(ng),nrhs,isalt)                           &
 ! Fsalt is given as kg/s/m^2. Should be converted to salinity (factor 1000).
      &         -(fsaltAI(i,j)+fsaltiAI(i,j))*1000.0_r8)  
+#   endif
 
           ! merge with stress from ice model
           sustr(i,j)=sustr(i,j)*(1.0_r8-aice_u(i,j))+stru(i,j)*cff

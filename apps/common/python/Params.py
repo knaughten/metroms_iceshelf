@@ -592,7 +592,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -694,7 +694,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:

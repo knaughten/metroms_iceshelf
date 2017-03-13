@@ -87,6 +87,9 @@
 # ifdef CICE_OCEAN
       USE ocean_coupler_mod, ONLY : ocn2cice_coupling
       USE frazil_ice_prod_mod, only: frazil_ice_prod
+#  ifdef BRINE_REJECTION
+      USE brine_rejection_mod, only: brine_rejection
+#  endif
       USE accum_o2i_mod, only: accum_o2i
 # endif
       USE omega_mod, ONLY : omega
@@ -806,6 +809,9 @@
                 CALL step3d_t (ng, tile)
 # if defined CICE_OCEAN
                 CALL frazil_ice_prod (ng,tile)
+#  ifdef BRINE_REJECTION
+                CALL brine_rejection (ng, tile)
+#  endif
                 CALL accum_o2i (ng,tile)
 # endif
               END DO
