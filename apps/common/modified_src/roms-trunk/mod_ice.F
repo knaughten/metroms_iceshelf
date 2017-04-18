@@ -49,6 +49,7 @@
           real(r8), pointer :: qfraz(:,:)     ! Frazil formed in K*m
 ! ROMS-to-CICE coupling fields accumulated over coupling interval
           real(r8), pointer :: qfraz_accum(:,:) ! Frazil
+          real(r8), pointer :: melt_accum(:,:) ! Melt potential
           real(r8), pointer :: sst_accum(:,:)   ! Surface temperature
           real(r8), pointer :: sss_accum(:,:)   ! Surface salinity
           real(r8), pointer :: u_accum(:,:,:)   ! u (3D for now)
@@ -89,6 +90,7 @@
 #if defined CICE_COUPLING
         allocate ( ICE(ng) % qfraz(LBi:UBi,LBj:UBj))
         allocate ( ICE(ng) % qfraz_accum(LBi:UBi,LBj:UBj))
+        allocate ( ICE(ng) % melt_accum(LBi:UBi,LBj:UBj))
         allocate ( ICE(ng) % sst_accum(LBi:UBi,LBj:UBj))
         allocate ( ICE(ng) % sss_accum(LBi:UBi,LBj:UBj))
         allocate ( ICE(ng) % u_accum(LBi:UBi,LBj:UBj,N(ng)))
@@ -110,6 +112,7 @@
 # if defined CICE_COUPLING
         ICE(ng) % qfraz = IniVal
         ICE(ng) % qfraz_accum = IniVal
+        ICE(ng) % melt_accum = IniVal
         ICE (ng) % sst_accum = IniVal
         ICE (ng) % sss_accum = IniVal
         ICE (ng) % u_accum = IniVal

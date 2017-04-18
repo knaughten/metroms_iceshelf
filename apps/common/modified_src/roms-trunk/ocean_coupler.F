@@ -758,20 +758,10 @@
              ! Don't touch the ice shelf cavities
              if (GRID(ng)%zice(i,j) .eq. 0.0_r8) then
 # endif   
-             if (ICE(ng)%qfraz_accum(i,j).gt.0.0_r8) then
-              ! Ice was formed
               ! Convert from K*m to W/m^2
-              frzmlt(i,j) = ICE(ng)%qfraz_accum(i,j)*rho0*Cp/           &
+              frzmlt(i,j) = (ICE(ng)%qfraz_accum(i,j) +                 &
+     &                       ICE(ng)%melt_accum(i,j))*rho0*Cp/          &
      &                      (ncouple*dt(ng))
-             else
-              ! No ice was formed; recompute melt potential in surface
-              Sold = max(0.0_r8,OCEAN(ng)%t(i,j,N(ng),NOUT,isalt))
-              t_fr = t_freeze(Sold,GRID(ng)%z_r(i,j,N(ng)))
-              dz = GRID(ng)%Hz(i,j,N(ng))
-              frzmlt(i,j) = min(0.0_r8,                                 &
-     &                   t_fr - OCEAN(ng)%t(i,j,N(ng),NOUT,itemp))*     &
-     &                   dz*rho0*Cp/(ncouple*dt(ng))
-             end if
 # ifdef ICESHELF
              else
                frzmlt(i,j) = 0.0_r8
@@ -797,7 +787,7 @@
 
 !jd Reset accumulation array
            ICE(ng)%qfraz_accum(:,:) = 0
-
+           ICE(ng)%melt_accum(:,:) = 0
 
         CASE ('u')
 

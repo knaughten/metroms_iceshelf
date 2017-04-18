@@ -7,7 +7,7 @@
 module load intel-fc
 module load intel-cc
 module load netcdf
-module load openmpi/1.8.4
+module load openmpi/1.10.2
 
 if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then
     rm /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM

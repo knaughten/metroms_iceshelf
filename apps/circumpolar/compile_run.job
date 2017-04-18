@@ -1,15 +1,15 @@
 #!/bin/bash
 #PBS -P y99
 #PBS -q express
-#PBS -l walltime=2:00:00,software=intel-fc,ncpus=608,mem=608gb
+#PBS -l walltime=1:00:00,software=intel-fc,ncpus=608,mem=608gb
 #PBS -j oe
 
 module load intel-fc
 module load intel-cc
 module load netcdf
-module load openmpi/1.8.4
+module load openmpi/1.10.2
 export PYTHONPATH=/short/m68/kaa561/metroms_iceshelf/apps/common/python:$PYTHONPATH
-export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.8.4/lib/Intel:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.10.2/lib/Intel:$LD_LIBRARY_PATH
 ulimit -s unlimited
 
 if [ -e /short/m68/kaa561/metroms_iceshelf/tmproms/run/circumpolar/oceanM ]; then

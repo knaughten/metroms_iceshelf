@@ -53,9 +53,9 @@
 #undef  TS_SMAGORINSKY     /* define if Smagorinsky-like diffusion */
 
 #undef MIX_GEO_TS         /* mixing on geopotential (constant Z) surfaces */
-#define MIX_S_UV           /* mixing along constant S-surfaces */
+#undef MIX_S_UV           /* mixing along constant S-surfaces */
 #undef MIX_S_TS
-#undef MIX_GEO_UV         /* mixing on geopotential (constant Z) surfaces */
+#define MIX_GEO_UV         /* mixing on geopotential (constant Z) surfaces */
 #define MIX_ISO_TS
 
 #define LIMIT_BSTRESS      /* limit bottom stress */

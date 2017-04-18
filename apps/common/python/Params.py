@@ -413,9 +413,9 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
             ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
@@ -438,7 +438,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
@@ -515,9 +515,9 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
             ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
@@ -540,7 +540,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
@@ -592,7 +592,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -617,10 +617,10 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
-            ['_TNU2_',"50.0d0 50.0d0"],
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
+            ['_TNU2_',"500.0d0 500.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
             ['_VISC4_',"1.0d+3"],
@@ -642,7 +642,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
@@ -692,9 +692,9 @@ class Params(object):
             self.CICEINFILE=self.RUNPATH + "/ice_in"
             self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
             self.TIMEREF=datetime(1992,01,01,00)
-            self.DELTAT=300 
+            self.DELTAT=300
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -719,10 +719,10 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
-            ['_TNU2_',"50.0d0 50.0d0"],
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
+            ['_TNU2_',"500.0d0 500.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
             ['_VISC4_',"1.0d+3"],
@@ -744,7 +744,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
@@ -788,6 +788,7 @@ class Params(object):
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar5"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
             self.ATMPATH=self.DATAPATH+"/ERA_Interim"
+            self.PRECIPPATH=self.DATAPATH+"/GPCP"
             self.BRYPATH=self.DATAPATH+"/ECCO2"
             self.ROMSINFILE=self.RUNPATH+"/roms.in"
             self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
@@ -796,7 +797,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -817,14 +818,14 @@ class Params(object):
             self.KEYWORDLIST=[
             ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
             ['MYAPPCPPNAME',"CIRCUMPOLAR"],
-            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
+            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo2.dat"],
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
-            ['_TNU2_',"50.0d0 50.0d0"],
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
+            ['_TNU2_',"500.0d0 500.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
             ['_VISC4_',"1.0d+3"],
@@ -846,7 +847,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
@@ -856,7 +857,7 @@ class Params(object):
             ['_CLMNAME_',"ocean_clm.nc"],
             ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
             ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.PRECIPPATH+"/precip_init.nc | \n"+self.PRECIPPATH+"/precip_1992_monthly.nc | \n"+self.PRECIPPATH+"/precip_1993_monthly.nc | \n"+self.PRECIPPATH+"/precip_1994_monthly.nc | \n"+self.PRECIPPATH+"/precip_1995_monthly.nc | \n"+self.PRECIPPATH+"/precip_1996_monthly.nc | \n"+self.PRECIPPATH+"/precip_1997_monthly.nc | \n"+self.PRECIPPATH+"/precip_1998_monthly.nc | \n"+self.PRECIPPATH+"/precip_1999_monthly.nc | \n"+self.PRECIPPATH+"/precip_2000_monthly.nc | \n"+self.PRECIPPATH+"/precip_2001_monthly.nc | \n"+self.PRECIPPATH+"/precip_2002_monthly.nc | \n"+self.PRECIPPATH+"/precip_2003_monthly.nc | \n"+self.PRECIPPATH+"/precip_2004_monthly.nc | \n"+self.PRECIPPATH+"/precip_2005_monthly.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
             ['RIVERFILE',"ocean_rivers.nc"],
             ['FORCEFILES',"4"],
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
@@ -879,13 +880,15 @@ class Params(object):
             ['CICEREST',cicerst_truefalse],
             ['CICERSTTIME',cicerst_truefalse],
             ['CICEFYEARINIT',start_date.strftime("%Y")],
-            ['CICEATMDIR',self.ATMPATH]
+            ['CICEATMDIR',self.ATMPATH],
+            ['CICEPRECIPDIR',self.PRECIPPATH]
             ]
             ########################################################################
             ########################################################################
         elif app=='circumpolar6':
             ########################################################################
             # Name of roms.in keyword-file:
+            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
             ########################################################################
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar6"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
@@ -898,7 +901,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -923,9 +926,9 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
             ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
@@ -948,7 +951,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
@@ -988,6 +991,7 @@ class Params(object):
         elif app=='circumpolar7':
             ########################################################################
             # Name of roms.in keyword-file:
+            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
             ########################################################################
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar7"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
@@ -1000,7 +1004,7 @@ class Params(object):
             self.TIMEREF=datetime(1992,01,01,00)
             self.DELTAT=300 
             self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=86400.0
+            self.COUPLINGTIME_I2O=1800.0
             # Find restart-time of CICE:
             cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
             if restart == True:
@@ -1025,9 +1029,9 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"4.0d0"],
-            ['GRDTHETAB',"0.9d0"],
-            ['GRDTCLINE',"40.0d0"],            
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
             ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
@@ -1050,7 +1054,7 @@ class Params(object):
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"2"],
+            ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],

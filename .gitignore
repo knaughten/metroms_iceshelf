@@ -1,6 +1,7 @@
-notes
+*notes
 *.job.o*
 *.nc
+*.pyc
 tmproms/
 static_libs/cice5.1.2.tar.gz
 static_libs/mct-2.9.tar.gz
@@ -19,3 +20,10 @@ apps/common/cice_input_grids/circumpolar5/
 apps/common/cice_input_grids/circumpolar6/
 apps/common/cice_input_grids/circumpolar7/
 apps/circumpolar/modified_src/
+apps/common/include/varinfo2.dat
+apps/common/origfiles/roms_keyword.in_roms-trunk2
+apps/common/modified_src/cice5.1.2_brinerejection/
+apps/common/modified_src/roms-trunk_brinerejection/
+apps/common/modified_src/era_precip/
+apps/common/modified_src/monthly_precip
+static_libs/roms-trunk/

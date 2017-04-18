@@ -28,7 +28,7 @@
 # First the defaults
 #
                FC := ifort
-           FFLAGS := -r8 -i4 -align all -w -ftz -convert big_endian -assume byterecl -assume nobuffered_io -no-vec -xHost -fp-model precise -g -traceback -fp0
+           FFLAGS := -r8 -i4 -align all -w -ftz -convert big_endian -assume byterecl -no-vec -xHost -g -traceback
               CPP := /usr/bin/cpp
          CPPFLAGS := -P -traditional
                CC := icc
@@ -90,7 +90,7 @@ ifdef USE_DEBUG
          CXXFLAGS += -g
 else
 #           FFLAGS += -ip -O3 
-           FFLAGS += -ip -O3
+           FFLAGS += -O3
            CFLAGS += -O3
          CXXFLAGS += -O3
 endif

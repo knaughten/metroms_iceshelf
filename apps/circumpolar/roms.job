@@ -7,9 +7,9 @@
 module load intel-fc
 module load intel-cc
 module load netcdf
-module load openmpi/1.8.4
+module load openmpi/1.10.2
 export PYTHONPATH=/short/m68/kaa561/metroms_iceshelf/apps/common/python:$PYTHONPATH
-export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.8.4/lib/Intel:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.10.2/lib/Intel:$LD_LIBRARY_PATH
 
 ulimit -s unlimited
 cd $PBS_O_WORKDIR

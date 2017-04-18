@@ -1,7 +1,7 @@
 #!/bin/bash
-#PBS -P gi0
+#PBS -P y99
 #PBS -q normal
-#PBS -l mem=576gb,walltime=10:00:00,ncpus=576,software=intel-cc,software=intel-fc,wd
+#PBS -l mem=608gb,walltime=10:00:00,ncpus=608,software=intel-cc,software=intel-fc,wd
 #PBS -j oe
 #PBS -v NJOBS,NJOB
 
@@ -105,9 +105,9 @@ mv ../../tmproms/run/circumpolar/ocean.log ../../tmproms/run/circumpolar/ocean"$
 module load intel-fc
 module load intel-cc
 module load netcdf
-module load openmpi/1.8.4
+module load openmpi/1.10.2
 export PYTHONPATH=/short/m68/kaa561/metroms_iceshelf/apps/common/python:$PYTHONPATH
-export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.8.4/lib/Intel:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/apps/netcdf/4.2.1.1/lib/Intel:/apps/openmpi/1.10.2/lib/Intel:$LD_LIBRARY_PATH
 
 ulimit -s unlimited
 python circumpolar.py

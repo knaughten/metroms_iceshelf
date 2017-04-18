@@ -73,8 +73,9 @@
      &                      GRID(ng) % z_r,                             &
      &                      GRID(ng) % z_w,                             &
      &                      OCEAN(ng) % t,                              &
-     &                      ICE(ng) % qfraz,                          &
-     &                      ICE(ng) % qfraz_accum)
+     &                      ICE(ng) % qfraz,                            &
+     &                      ICE(ng) % qfraz_accum,                      &
+     &                      ICE(ng) % melt_accum)
 # ifdef PROFILE
       CALL wclock_off (ng, iNLM, 44)
 # endif
@@ -95,7 +96,8 @@
 # ifdef ICESHELF
      &                            zice,                                 &
 # endif
-     &                            Hz, z_r, z_w, t, qfraz, qfraz_accum)
+     &                            Hz, z_r, z_w, t, qfraz, qfraz_accum,  &
+     &                            melt_accum)
 !***********************************************************************
 !
       USE mod_param
@@ -134,6 +136,7 @@
       real(r8), intent(inout) :: t(LBi:,LBj:,:,:,:)
       real(r8), intent(out) :: qfraz(LBi:,LBj:)
       real(r8), intent(inout) :: qfraz_accum(LBi:,LBj:)
+      real(r8), intent(inout) :: melt_accum(LBi:,LBj:)
 # else
 #  ifdef MASKING
       real(r8), intent(in) :: rmask(LBi:UBi,LBj:UBj)
@@ -150,6 +153,7 @@
       real(r8), intent(inout) :: t(LBi:UBi,LBj:UBj,N(ng),3,NT(ng))
       real(r8), intent(out) :: qfraz(LBi:UBi,LBj:UBj)
       real(r8), intent(inout) :: qfraz_accum(LBi:UBi,LBj:UBj)
+      real(r8), intent(inout) :: melt_accum(LBi:UBi,LBj:UBj)
 # endif
 !
 ! Local variable definitions
@@ -222,6 +226,12 @@
 !     &                                t(i,j,k,nnew,isalt) +             &
 !     &           (salref-salice)*potice*cp_over_lhfusion/dz
             qfraz_accum(i,j) = qfraz_accum(i,j) + potice
+            ! Now see if there is any further melt potential left over
+            ! This does not affect temperature or salinity
+            Sold = max(0.0_r8,t(i,j,k,nnew,isalt))
+            t_fr = t_freeze(Sold,z_r(i,j,k))
+            potice = (t_fr - t(i,j,k,nnew,itemp))*dz  ! <= 0
+            melt_accum(i,j) = melt_accum(i,j) + potice
             
 # ifdef ICESHELF
             END IF
