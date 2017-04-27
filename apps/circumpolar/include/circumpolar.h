@@ -91,6 +91,7 @@
 # define LMD_RIMIX         /* use to add diffusivity due to shear instability */
 # define LMD_SHAPIRO       /* use if Shapiro filtering boundary layer depth */
 # define LMD_SKPP          /* use if surface boundary layer KPP mixing */
+# undef LMD_MDMOD         /* Mike Dinnimann's modification */
 #endif
 
 #define ANA_BSFLUX         /* analytical bottom salinity flux */
@@ -140,6 +141,10 @@
 
 #undef ATM_PRESS          /* use to impose atmospheric pressure onto sea surface */
 #undef SOLAR_SOURCE       /* define solar radiation source term */
+
+#define SCORRECTION       /* surface salinity restoring */
+#define SCORRECTION_MASK  /* don't restore on Antarctic continental shelf */
+#define SAVE_SSFREST      /* output the surface salt flux from restoring */
 
 /* TIDES */
 #undef POT_TIDES         /* Potential tides by Kate Edstrom */

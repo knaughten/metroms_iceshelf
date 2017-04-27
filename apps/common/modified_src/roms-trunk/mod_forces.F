@@ -120,6 +120,7 @@
 !                 horizontal RHO-points.                               !
 !  stflxG       Latest two-time snapshots of input "stflx" grided      !
 !                 data used for interpolation.                         !
+!  ssflx_rest  Surface salinity flux implied by restoring              !
 !                                                                      !
 !  Bottom tracer fluxes.                                               !
 !                                                                      !
@@ -313,6 +314,9 @@
 # if !defined ANA_STFLUX || !defined ANA_SSFLUX || \
      !defined ANA_SPFLUX
           real(r8), pointer :: stflxG(:,:,:,:)
+# endif
+# ifdef SAVE_SSFREST
+          real(r8), pointer :: ssflx_rest(:,:)
 # endif
 # ifdef ADJUST_STFLUX
           real(r8), pointer :: tflux(:,:,:,:,:)
@@ -638,6 +642,9 @@
 # if !defined ANA_STFLUX || !defined ANA_SSFLUX || \
      !defined ANA_SPFLUX
       allocate ( FORCES(ng) % stflxG(LBi:UBi,LBj:UBj,2,NT(ng)) )
+# endif
+# ifdef SAVE_SSFREST
+      allocate ( FORCES(ng) % ssflx_rest(LBi:UBi,LBj:UBj) )
 # endif
 # ifdef ADJUST_STFLUX
       allocate ( FORCES(ng) % tflux(LBi:UBi,LBj:UBj,nfrec(ng),          &
@@ -1041,6 +1048,9 @@
               END DO
 # endif
               FORCES(ng) % stflx(i,j,itrc) = IniVal
+# ifdef SAVE_SSFREST
+              FORCES(ng) % ssflx_rest(i,j) = IniVal
+# endif
               FORCES(ng) % btflx(i,j,itrc) = IniVal
 # if !defined ANA_STFLUX || !defined ANA_SSFLUX || \
      !defined ANA_SPFLUX

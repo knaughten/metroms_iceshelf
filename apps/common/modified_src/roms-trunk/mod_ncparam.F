@@ -257,6 +257,7 @@
         integer  :: idSSTc        ! SST climatology
         integer  :: idShea        ! net sensible heat flux
         integer  :: idSWCW        ! SIN(omega(k)*t)*COS(omega(l)*t)
+        integer  :: idssfr        ! surface salt flux from restoring
         integer  :: idsfwf        ! surface freswater flux
         integer  :: idTLmo        ! TLM at observation locations
         integer  :: idTair        ! surface air temperature
@@ -1013,8 +1014,10 @@
               idTsur(itemp)=varid
             CASE ('iddQdT')
               iddQdT=varid
+            CASE ('idssfr')
+              idssfr=varid
             CASE ('idsfwf')
-              idsfwf=varid
+              idsfwf=varid            
             CASE ('idTsur(isalt)')
               idTsur(isalt)=varid
             CASE ('idTbot(itemp)')

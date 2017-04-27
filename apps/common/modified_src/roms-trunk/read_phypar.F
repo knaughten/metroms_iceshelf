@@ -872,6 +872,8 @@
                 END DO
 # endif
               END DO
+            CASE ('SSNUDG')
+              Npts=load_r(Nval, Rval, Ngrids, SSnudg)
             CASE ('ZNUDG')
               Npts=load_r(Nval, Rval, Ngrids, Znudg)
             CASE ('M2NUDG')
@@ -1645,6 +1647,15 @@
                   Hout(i,ng)=Ltracer(itrc,ng)
                 END DO
               END DO
+#ifdef SAVE_SSFREST
+            CASE ('Hout(idssfr)')
+              IF (idssfr.eq.0) THEN
+                IF (Master) WRITE (out,280) 'idssfr'
+                exit_flag=5
+                RETURN
+              END IF
+              Npts=load_l(Nval, Cval, Ngrids, Hout(idssfr,:))
+#endif
             CASE ('Hout(idLhea)')
               IF (idLhea.eq.0) THEN
                 IF (Master) WRITE (out,280) 'idLhea'
@@ -2091,6 +2102,10 @@
                   Aout(i,ng)=Ltracer(itrc,ng)
                 END DO
               END DO
+#ifdef SAVE_SSFREST
+            CASE ('Aout(idssfr)')
+              Npts=load_l(Nval, Cval, Ngrids, Aout(idssfr,:))
+#endif
             CASE ('Aout(idLhea)')
               Npts=load_l(Nval, Cval, Ngrids, Aout(idLhea,:))
             CASE ('Aout(idShea)')
@@ -4485,6 +4500,11 @@
             IF (Hout(idTsur(isalt),ng)) WRITE (out,170)                 &
      &          Hout(idTsur(isalt),ng), 'Hout(idTsur)',                 &
      &         'Write out surface net salt flux.'
+# ifdef SAVE_SSFREST
+            IF (Hout(idssfr,ng)) WRITE (out,170) Hout(idssfr,ng),       &
+     &         'Hout(idssfr)',                                          &
+     &         'Write out surface salt flux from restoring.'
+# endif
 # ifdef SHORTWAVE
             IF (Hout(idSrad,ng)) WRITE (out,170) Hout(idSrad,ng),       &
      &         'Hout(idSrad)',                                          &
@@ -4990,6 +5010,11 @@
             IF (Aout(idTsur(isalt),ng)) WRITE (out,170)                 &
      &          Aout(idTsur(isalt),ng), 'Aout(idTsur)',                 &
      &         'Write out averaged surface net salt flux.'
+#  ifdef SAVE_SSFREST
+            IF (Aout(idssfr,ng)) WRITE (out,170) Aout(idssfr,ng),       &
+     &         'Aout(idssfr)',                                          &
+     &         'Write out averaged surface salt flux from restoring.'
+#  endif
 #  ifdef SHORTWAVE
             IF (Aout(idSrad,ng)) WRITE (out,170) Aout(idSrad,ng),       &
      &         'Aout(idSrad)',                                          &
@@ -5707,6 +5732,13 @@
             Tnudg(itrc,ng)=0.0_r8
           END IF
         END DO
+
+        IF (SSnudg(ng).gt.0.0_r8) THEN
+           SSnudg(ng)=1.0_r8/(SSnudg(ng)*86400.0_r8)
+        ELSE
+           SSnudg(ng)=0.0_r8
+        END IF
+
       END DO
 #endif
 

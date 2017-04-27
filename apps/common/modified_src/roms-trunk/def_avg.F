@@ -1413,6 +1413,28 @@
           IF (exit_flag.ne.NoError) RETURN
         END IF
 
+#  ifdef SAVE_SSFREST
+!
+!  Define surface salt flux from restoring.
+!
+        IF (Aout(idssfr,ng)) THEN
+          Vinfo( 1)=Vname(1,idssfr)
+          WRITE (Vinfo( 2),'(a,1x,a)') Prefix, TRIM(Vname(2,idssfr))
+          Vinfo( 3)=Vname(3,idssfr)
+          Vinfo(11)='upward flux, freshening'
+          Vinfo(12)='downward flux, salting'
+          Vinfo(14)=Vname(4,idssfr)
+          Vinfo(16)=Vname(1,idtime)
+#   if defined WRITE_WATER && defined MASKING
+          Vinfo(20)='mask_rho'
+#   endif
+          Vinfo(22)='coordinates'
+          Aval(5)=REAL(Iinfo(1,idssfr,ng),r8)
+          status=def_var(ng, model, AVG(ng)%ncid, AVG(ng)%Vid(idssfr),  &
+     &                   NF_FOUT, nvd3, t2dgrd, Aval, Vinfo, ncname)
+          IF (exit_flag.ne.NoError) RETURN
+        END IF
+#  endif
 #  ifdef BULK_FLUXES
 !
 !  Define latent heat flux.
@@ -2162,6 +2184,11 @@
      &             TRIM(Vname(1,idTsur(isalt)))) THEN
             got_var(idTsur(isalt))=.TRUE.
             AVG(ng)%Vid(idTsur(isalt))=var_id(i)
+#  ifdef SAVE_SSFREST
+          ELSE IF (TRIM(var_name(i)).eq.TRIM(Vname(1,idssfr))) THEN
+            got_var(idssfr)=.TRUE.
+            AVG(ng)%Vid(idssfr)=var_id(i)
+#  endif            
 #  ifdef BULK_FLUXES
           ELSE IF (TRIM(var_name(i)).eq.TRIM(Vname(1,idLhea))) THEN
             got_var(idLhea)=.TRUE.
@@ -2604,6 +2631,14 @@
           exit_flag=3
           RETURN
         END IF
+#  ifdef SAVE_SSFREST
+        IF (.not.got_var(idssfr).and.Aout(idssfr,ng)) THEN
+          IF (Master) WRITE (stdout,60) TRIM(Vname(1,idssfr)),          &
+     &                                  TRIM(ncname)
+          exit_flag=3
+          RETURN
+        END IF
+#  endif
 #  ifdef BULK_FLUXES
         IF (.not.got_var(idLhea).and.Aout(idLhea,ng)) THEN
           IF (Master) WRITE (stdout,60) TRIM(Vname(1,idLhea)),          &

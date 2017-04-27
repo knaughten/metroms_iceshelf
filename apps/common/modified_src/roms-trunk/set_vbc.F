@@ -72,6 +72,12 @@
 #  endif
 #  if defined SCORRECTION || defined SRELAXATION
      &                   FORCES(ng) % sss,                              &
+#   if defined SAVE_SSFREST
+     &                   FORCES(ng) % ssflx_rest,                       &
+#   endif
+#  endif
+#  ifdef SCORRECTION_MASK
+     &                   GRID(ng)%latr, GRID(ng)%h, GRID(ng)%zice,      &
 #  endif
 #  if defined CICE_COUPLING
 #   if defined SHORTWAVE 
@@ -127,6 +133,12 @@
 #  endif
 #  if defined SCORRECTION || defined SRELAXATION
      &                         sss,                                     &
+#   if defined SAVE_SSFREST
+     &                         ssflx_rest,                              &
+#   endif
+#  endif
+#  ifdef SCORRECTION_MASK
+     &                         latr, h,  zice,                          &
 #  endif
 #  if defined CICE_COUPLING
 #   ifdef SHORTWAVE
@@ -191,6 +203,14 @@
 #   endif
 #   if defined SCORRECTION || defined SRELAXATION
       real(r8), intent(in) :: sss(LBi:,LBj:)
+#    ifdef SAVE_SSFREST
+      real(r8), intent(inout) :: ssflx_rest(LBi:,LBj:)
+#    endif
+#   endif
+#   ifdef SCORRECTION_MASK
+      real(r8), intent(in) :: latr(LBi:,LBj:)
+      real(r8), intent(in) :: h(LBi:,LBj:)
+      real(r8), intent(in) :: zice(LBi:,LBj:)
 #   endif
 #   if defined CICE_COUPLING
 #    ifdef SHORTWAVE
@@ -238,6 +258,14 @@
 #   endif
 #   if defined SCORRECTION || defined SRELAXATION
       real(r8), intent(in) :: sss(LBi:UBi,LBj:UBj)
+#    ifdef SAVE_SSFREST
+      real(r8), intent(inout) :: ssflx_rest(LBi:UBi,LBj:UBj)
+#    endif
+#   endif
+#   ifdef SCORRECTION_MASK
+      real(r8), intent(in) :: latr(LBi:UBi,LBj:UBj)
+      real(r8), intent(in) :: h(LBi:UBi,LBj:UBj)
+      real(r8), intent(in) :: zice(LBi:UBi,LBj:UBj)
 #   endif
 #   if defined CICE_COUPLING
 #    ifdef SHORTWAVE
@@ -273,6 +301,15 @@
 
 #  if !defined BBL_MODEL && defined UV_LOGDRAG
       real(r8), dimension(IminS:ImaxS,JminS:JmaxS) :: wrk
+#  endif
+
+#  if defined SCORRECTION || defined SRELAXATION
+      real(r8) :: flag
+#  endif
+
+#  ifdef SCORRECTION_MASK
+      real(r8), parameter :: lat0 = -60.0_r8
+      real(r8), parameter :: h0 = 1500.0_r8
 #  endif
 
 #  include "set_bounds.h"
@@ -324,22 +361,12 @@
 #  ifdef SALINITY
 !
 !-----------------------------------------------------------------------
-!  Multiply fresh water flux with surface salinity. If appropriate,
-!  apply correction.
+!  Multiply fresh water flux with surface salinity.
 !-----------------------------------------------------------------------
 !
       DO j=JstrR,JendR
         DO i=IstrR,IendR
-#   if defined SCORRECTION
-          stflx(i,j,isalt)=stflx(i,j,isalt)*t(i,j,N(ng),nrhs,isalt)-    &
-     &                     Tnudg(isalt,ng)*Hz(i,j,N(ng))*               &
-     &                     (t(i,j,N(ng),nrhs,isalt)-sss(i,j))
-#   elif defined SRELAXATION
-          stflx(i,j,isalt)=-Tnudg(isalt,ng)*Hz(i,j,N(ng))*              &
-     &                     (t(i,j,N(ng),nrhs,isalt)-sss(i,j))
-#   else
           stflx(i,j,isalt)=stflx(i,j,isalt)*t(i,j,N(ng),nrhs,isalt)
-#   endif
           btflx(i,j,isalt)=btflx(i,j,isalt)*t(i,j,1,nrhs,isalt)
         END DO
       END DO
@@ -391,7 +418,40 @@
      &                    EWperiodic(ng), NSperiodic(ng),               &
      &                    srflx, stflx(:,:,itemp),stflx(:,:,isalt))
 #   endif
-# endif
+#  endif
+
+#  if defined SALINITY && (defined SCORRECTION || defined SRELAXATION)
+!
+!-----------------------------------------------------------------------
+!  Apply correction.
+!-----------------------------------------------------------------------
+!
+      DO j=JstrR,JendR
+        DO i=IstrR,IendR
+#   ifdef SCORRECTION_MASK
+          ! Don't apply correction if lat<lat0 and h<h0, or in ice shelf
+          ! cavities. In these cases, flag=0; otherwise, flag=1
+          flag=(1.0_r8-MIN(SIGN(1.0_r8,latr(i,j)-lat0),0.0_r8)*         &
+     &                MIN(SIGN(1.0_r8,h(i,j)-h0),0.0_r8))*              &
+     &         (1.0_r8+MIN(SIGN(1.0_r8,zice(i,j)),0.0_r8))
+#   else
+          flag=1.0_r8
+#   endif
+#   if defined SCORRECTION
+          stflx(i,j,isalt)=stflx(i,j,isalt)-                            &
+     &                     flag*SSnudg(ng)*Hz(i,j,N(ng))*               &
+     &                     (t(i,j,N(ng),nrhs,isalt)-sss(i,j))
+#   elif defined SRELAXATION
+          stflx(i,j,isalt)=-flag*SSnudg(ng)*Hz(i,j,N(ng))*              &
+     &                     (t(i,j,N(ng),nrhs,isalt)-sss(i,j))
+#   endif
+#   ifdef SAVE_SSFREST
+          ssflx_rest(i,j)=-flag*SSnudg(ng)*Hz(i,j,N(ng))*               &
+     &                    (t(i,j,N(ng),nrhs,isalt)-sss(i,j))
+#   endif
+        END DO
+      END DO
+#  endif
 
 #  ifndef BBL_MODEL
 !

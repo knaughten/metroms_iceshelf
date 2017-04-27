@@ -723,6 +723,15 @@
   'r2dvar'
   1.0d0
 
+'ssflux_restoring'                                 ! Output
+  'surface salt flux from restoring'
+  'psu m/s'
+  'surface salt flux from restoring, series'
+  'ssf_time'
+  'idssfr'
+  'r2dvar'
+  1.0d0
+
 'swflux'                                           ! Input
   'surface net freswater flux, (E-P)'
   'centimeter day-1'                               ! Input:  [m/s]

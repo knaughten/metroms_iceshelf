@@ -699,6 +699,19 @@
             END DO
           END DO
         END IF
+#  ifdef SAVE_SSFREST
+        IF (Aout(idssfr,ng)) THEN
+          DO j=JstrR,JendR
+            DO i=IstrR,IendR
+              AVERAGE(ng)%avgssfr(i,j)=FORCES(ng)%ssflx_rest(i,j)
+#   ifdef WET_DRY
+              AVERAGE(ng)%avgssfr(i,j)=AVERAGE(ng)%avgssfr(i,j)*        &
+     &                                 GRID(ng)%rmask_full(i,j)
+#   endif
+            END DO
+          END DO
+        END IF
+#  endif
 #  ifdef SHORTWAVE
         IF (Aout(idSrad,ng)) THEN
           DO j=JstrR,JendR
@@ -1722,6 +1735,19 @@
             END DO
           END DO
         END IF
+#  ifdef SAVE_SSFREST
+        IF (Aout(idssfr,ng)) THEN
+          DO j=JstrR,JendR
+            DO i=IstrR,IendR
+              AVERAGE(ng)%avgssfr(i,j)=AVERAGE(ng)%avgssfr(i,j)+        &
+#   ifdef WET_DRY
+     &                                 GRID(ng)%rmask_full(i,j)*        &
+#   endif
+     &                                 FORCES(ng)%ssflx_rest(i,j)
+            END DO
+          END DO
+        END IF
+#  endif
 #  ifdef SHORTWAVE
         IF (Aout(idSrad,ng)) THEN
           DO j=JstrR,JendR
@@ -3055,6 +3081,29 @@
 #  endif
           END IF
         END IF
+
+#  ifdef SAVE_SSFREST
+        IF (Aout(idssfr,ng)) THEN
+          DO j=JstrR,JendR
+            DO i=IstrR,IendR
+              AVERAGE(ng)%avgssfr(i,j)=rfac(i,j)*                       &
+     &                                 AVERAGE(ng)%avgssfr(i,j)
+            END DO
+          END DO
+          IF (EWperiodic(ng).or.NSperiodic(ng)) THEN
+            CALL exchange_r2d_tile (ng, tile,                           &
+     &                              LBi, UBi, LBj, UBj,                 &
+     &                              AVERAGE(ng)%avgssfr)
+#   ifdef DISTRIBUTE
+            CALL mp_exchange2d (ng, tile, iNLM, 1,                      &
+     &                          LBi, UBi, LBj, UBj,                     &
+     &                          NghostPoints,                           &
+     &                          EWperiodic(ng), NSperiodic(ng),         &
+     &                          AVERAGE(ng)%avgssfr)
+#   endif
+          END IF
+        END IF
+#  endif
 
 #  ifdef SHORTWAVE
         IF (Aout(idSrad,ng)) THEN

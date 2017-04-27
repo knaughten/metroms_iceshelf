@@ -555,6 +555,7 @@ Hout(idUair) == F       ! Uair               surface U-wind component
 Hout(idVair) == F       ! Vair               surface V-wind component
 
 Hout(idTsur) == T T     ! shflux, ssflux     surface net heat and salt flux
+Hout(idssfr) == T       ! ssflux_restoring   surface salt flux from restoring
 Hout(idLhea) == F       ! latent             latent heat flux
 Hout(idShea) == F       ! sensible           sensible heat flux
 Hout(idLrad) == T       ! lwrad              longwave radiation flux
@@ -734,6 +735,7 @@ Aout(idUair) == F       ! Uair               surface U-wind component
 Aout(idVair) == F       ! Vair               surface V-wind component
 
 Aout(idTsur) == T T     ! shflux, ssflux     surface net heat and salt flux
+Aout(idssfr) == T       ! ssflux_restoring   surface salt flux from restoring
 Aout(idLhea) == F       ! latent             latent heat flux
 Aout(idShea) == F       ! sensible           sensible heat flux
 Aout(idLrad) == T       ! lwrad              longwave radiation flux
@@ -883,10 +885,9 @@ Dout(iTvdif) == F F                        ! vertical diffusion
 ! and so on.  Use a single line per entry with a continuation (\) symbol
 ! at the each entry, except the last one.
 
-    NFFILES == FORCEFILES                         ! number of forcing files
+    NFFILES == _NFFILES_                         ! number of forcing files
 
-    FRCNAME == ATMDIR  \
-               TIDEDIR/pot_tides.nc
+    FRCNAME == FRCFILES
                 
 
 

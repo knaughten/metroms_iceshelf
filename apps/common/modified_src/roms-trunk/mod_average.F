@@ -70,6 +70,9 @@
 # ifdef SOLVE3D
 !  avgstf     Surface net heat flux (W/m2).                            !
 !  avgswf     Surface net freshwater flux (kg/m2/s).                   !
+#  ifdef SAVE_SSFREST
+!  avgssfr    Surface salt flux from restoring (psu m/s).              !
+#  endif
 #  ifdef SHORTWAVE
 !  avgsrf     Shortwave radiation flux (W/m2).                         !
 #  endif
@@ -213,6 +216,9 @@
 #  endif
           real(r8), pointer :: avgstf(:,:)
           real(r8), pointer :: avgswf(:,:)
+#  ifdef SAVE_SSFREST
+          real(r8), pointer :: avgssfr(:,:)
+#  endif
 #  ifdef SHORTWAVE
           real(r8), pointer :: avgsrf(:,:)
 #  endif
@@ -450,6 +456,11 @@
       IF (Aout(idTsur(isalt),ng)) THEN
         allocate ( AVERAGE(ng) % avgswf(LBi:UBi,LBj:UBj) )
       END IF
+#  ifdef SAVE_SSFREST
+      IF (Aout(idssfr,ng)) THEN
+        allocate ( AVERAGE(ng) % avgssfr(LBi:UBi,LBj:UBj) )
+      END IF
+#  endif
 #  ifdef SHORTWAVE
       IF (Aout(idSrad,ng)) THEN
         allocate ( AVERAGE(ng) % avgsrf(LBi:UBi,LBj:UBj) )
@@ -960,7 +971,15 @@
           END DO
         END DO
       END IF
-
+#  ifdef SAVE_SSFREST
+      IF (Aout(idssfr,ng)) THEN
+        DO j=Jmin,Jmax
+          DO i=Imin,Imax
+            AVERAGE(ng) % avgssfr(i,j) = IniVal
+          END DO
+        END DO
+      END IF
+#  endif
 #  ifdef SHORTWAVE
       IF (Aout(idSrad,ng)) THEN
         DO j=Jmin,Jmax

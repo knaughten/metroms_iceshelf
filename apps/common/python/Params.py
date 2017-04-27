@@ -376,6 +376,7 @@ class Params(object):
         elif app=='circumpolar':
             ########################################################################
             # Name of roms.in keyword-file:
+            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
             ########################################################################
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
@@ -399,7 +400,7 @@ class Params(object):
                 cicerst_truefalse = ".true."
                 cice_runtype = "'continue'"
             else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
+                self.ROMSRESTART=self.DATAPATH+"/woa_ini.nc"
                 cice_rst_time = cice_start_step
                 cicerst_truefalse = ".false."
                 cice_runtype = "'initial'"
@@ -440,17 +441,17 @@ class Params(object):
             ['V_TRANS',"2"],
             ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
+            ['_SSNUDG_',"0.5d0 0.5d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
             ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
             ['INIFILE',self.ROMSRESTART],
             ['RUNDIR',self.RUNPATH],
             ['_CLMNAME_',"ocean_clm.nc"],
-            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_final.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc | \n"+self.ATMPATH+"/AN_2006_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc | \n"+self.ATMPATH+"/FC_2006_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc \ \n"+self.DATAPATH+"/sss_nudge.nc"],
             ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
+            ['_NFFILES_',"4"],
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
             ['CICEINFILE', self.CICEINFILE ],
@@ -466,7 +467,7 @@ class Params(object):
             ['CICEDELTAT',str(self.CICEDELTAT)],
             ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
             ['CICERUNTYPE',cice_runtype],
-            ['CICEIC',"'mask'"],
+            ['CICEIC',"'default'"],
             ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
             ['CICEREST',cicerst_truefalse],
             ['CICERSTTIME',cicerst_truefalse],
@@ -478,6 +479,7 @@ class Params(object):
         elif app=='circumpolar2':
             ########################################################################
             # Name of roms.in keyword-file:
+            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
             ########################################################################
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar2"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
@@ -501,7 +503,7 @@ class Params(object):
                 cicerst_truefalse = ".true."
                 cice_runtype = "'continue'"
             else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
+                self.ROMSRESTART=self.DATAPATH+"/woa_ini.nc"
                 cice_rst_time = cice_start_step
                 cicerst_truefalse = ".false."
                 cice_runtype = "'initial'"
@@ -542,17 +544,17 @@ class Params(object):
             ['V_TRANS',"2"],
             ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
+            ['_SSNUDG_',"0.5d0 0.5d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
             ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
             ['INIFILE',self.ROMSRESTART],
             ['RUNDIR',self.RUNPATH],
             ['_CLMNAME_',"ocean_clm.nc"],
-            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_final.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc | \n"+self.ATMPATH+"/AN_2006_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc | \n"+self.ATMPATH+"/FC_2006_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc \ \n"+self.DATAPATH+"/sss_nudge.nc"],
             ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
+            ['_NFFILES_',"4"],
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
             ['CICEINFILE', self.CICEINFILE ],
@@ -568,7 +570,7 @@ class Params(object):
             ['CICEDELTAT',str(self.CICEDELTAT)],
             ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
             ['CICERUNTYPE',cice_runtype],
-            ['CICEIC',"'mask'"],
+            ['CICEIC',"'default'"],
             ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
             ['CICEREST',cicerst_truefalse],
             ['CICERSTTIME',cicerst_truefalse],
@@ -580,6 +582,7 @@ class Params(object):
         elif app=='circumpolar3':
             ########################################################################
             # Name of roms.in keyword-file:
+            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
             ########################################################################
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar3"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
@@ -603,316 +606,7 @@ class Params(object):
                 cicerst_truefalse = ".true."
                 cice_runtype = "'continue'"
             else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
-                cice_rst_time = cice_start_step
-                cicerst_truefalse = ".false."
-                cice_runtype = "'initial'"
-            ########################################################################
-            # List of keywords:
-            ########################################################################
-            self.KEYWORDLIST=[
-            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
-            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
-            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
-            ['XPOINTS',"1440"],  #Could read from grd-file?
-            ['YPOINTS',"428"],  #Could read from grd-file?
-            ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"7.0d0"],
-            ['GRDTHETAB',"2.0d0"],
-            ['GRDTCLINE',"250.0d0"],            
-            ['_TNU2_',"500.0d0 500.0d0"],
-            ['_TNU4_',"0.5d+5 0.5d+5"],
-            ['_VISC2_',"1000.0d0"],
-            ['_VISC4_',"1.0d+3"],
-            ['XCPU',str(self.XCPU)],
-            ['YCPU',str(self.YCPU)],
-            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
-            ['DELTAT',str(self.DELTAT)],
-            ['RATIO',"30"],
-            ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
-            ['STASTEP',str(1*3600/int(self.DELTAT))],
-            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
-            ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
-            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
-            ['V_TRANS',"2"],
-            ['V_STRETCH',"4"],
-            ['_TNUDG_',"15.0d0 15.0d0"],
-            ['OBCFAKTOR',"3.0"],
-            ['NUDGZONEWIDTH',"10"],
-            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
-            ['INIFILE',self.ROMSRESTART],
-            ['RUNDIR',self.RUNPATH],
-            ['_CLMNAME_',"ocean_clm.nc"],
-            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
-            ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
-            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
-            ['ROMSINFILE', self.ROMSINFILE ],
-            ['CICEINFILE', self.CICEINFILE ],
-            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
-            ['NUMCICECORES',str(int(self.CICECPU))]
-            ]
-            ########################################################################
-            # List of CICE keywords:
-            ########################################################################
-            self.CICEKEYWORDLIST=[
-            ['CICEYEARSTART',start_date.strftime("%Y")],
-            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
-            ['CICEDELTAT',str(self.CICEDELTAT)],
-            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
-            ['CICERUNTYPE',cice_runtype],
-            ['CICEIC',"'mask'"],
-            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
-            ['CICEREST',cicerst_truefalse],
-            ['CICERSTTIME',cicerst_truefalse],
-            ['CICEFYEARINIT',start_date.strftime("%Y")],
-            ['CICEATMDIR',self.ATMPATH]
-            ]
-            ########################################################################
-            ########################################################################
-        elif app=='circumpolar4':
-            ########################################################################
-            # Name of roms.in keyword-file:
-            ########################################################################
-            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar4"
-            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
-            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
-            self.BRYPATH=self.DATAPATH+"/ECCO2"
-            self.ROMSINFILE=self.RUNPATH+"/roms.in"
-            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
-            self.CICEINFILE=self.RUNPATH + "/ice_in"
-            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
-            self.TIMEREF=datetime(1992,01,01,00)
-            self.DELTAT=300
-            self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=1800.0
-            # Find restart-time of CICE:
-            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
-            if restart == True:
-                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
-                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
-                cice_restartfile = f.readline().strip()
-                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
-                cicerst_truefalse = ".true."
-                cice_runtype = "'continue'"
-            else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
-                cice_rst_time = cice_start_step
-                cicerst_truefalse = ".false."
-                cice_runtype = "'initial'"
-            ########################################################################
-            # List of keywords:
-            ########################################################################
-            self.KEYWORDLIST=[
-            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
-            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
-            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
-            ['XPOINTS',"1440"],  #Could read from grd-file?
-            ['YPOINTS',"428"],  #Could read from grd-file?
-            ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"7.0d0"],
-            ['GRDTHETAB',"2.0d0"],
-            ['GRDTCLINE',"250.0d0"],            
-            ['_TNU2_',"500.0d0 500.0d0"],
-            ['_TNU4_',"0.5d+5 0.5d+5"],
-            ['_VISC2_',"1000.0d0"],
-            ['_VISC4_',"1.0d+3"],
-            ['XCPU',str(self.XCPU)],
-            ['YCPU',str(self.YCPU)],
-            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
-            ['DELTAT',str(self.DELTAT)],
-            ['RATIO',"30"],
-            ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
-            ['STASTEP',str(1*3600/int(self.DELTAT))],
-            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
-            ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
-            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
-            ['V_TRANS',"2"],
-            ['V_STRETCH',"4"],
-            ['_TNUDG_',"15.0d0 15.0d0"],
-            ['OBCFAKTOR',"3.0"],
-            ['NUDGZONEWIDTH',"10"],
-            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
-            ['INIFILE',self.ROMSRESTART],
-            ['RUNDIR',self.RUNPATH],
-            ['_CLMNAME_',"ocean_clm.nc"],
-            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
-            ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
-            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
-            ['ROMSINFILE', self.ROMSINFILE ],
-            ['CICEINFILE', self.CICEINFILE ],
-            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
-            ['NUMCICECORES',str(int(self.CICECPU))]
-            ]
-            ########################################################################
-            # List of CICE keywords:
-            ########################################################################
-            self.CICEKEYWORDLIST=[
-            ['CICEYEARSTART',start_date.strftime("%Y")],
-            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
-            ['CICEDELTAT',str(self.CICEDELTAT)],
-            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
-            ['CICERUNTYPE',cice_runtype],
-            ['CICEIC',"'mask'"],
-            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
-            ['CICEREST',cicerst_truefalse],
-            ['CICERSTTIME',cicerst_truefalse],
-            ['CICEFYEARINIT',start_date.strftime("%Y")],
-            ['CICEATMDIR',self.ATMPATH]
-            ]
-            ########################################################################
-            ########################################################################
-        elif app=='circumpolar5':
-            ########################################################################
-            # Name of roms.in keyword-file:
-            ########################################################################
-            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar5"
-            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
-            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
-            self.PRECIPPATH=self.DATAPATH+"/GPCP"
-            self.BRYPATH=self.DATAPATH+"/ECCO2"
-            self.ROMSINFILE=self.RUNPATH+"/roms.in"
-            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
-            self.CICEINFILE=self.RUNPATH + "/ice_in"
-            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
-            self.TIMEREF=datetime(1992,01,01,00)
-            self.DELTAT=300 
-            self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=1800.0
-            # Find restart-time of CICE:
-            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
-            if restart == True:
-                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
-                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
-                cice_restartfile = f.readline().strip()
-                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
-                cicerst_truefalse = ".true."
-                cice_runtype = "'continue'"
-            else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
-                cice_rst_time = cice_start_step
-                cicerst_truefalse = ".false."
-                cice_runtype = "'initial'"
-            ########################################################################
-            # List of keywords:
-            ########################################################################
-            self.KEYWORDLIST=[
-            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
-            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
-            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo2.dat"],
-            ['XPOINTS',"1440"],  #Could read from grd-file?
-            ['YPOINTS',"428"],  #Could read from grd-file?
-            ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"7.0d0"],
-            ['GRDTHETAB',"2.0d0"],
-            ['GRDTCLINE',"250.0d0"],            
-            ['_TNU2_',"500.0d0 500.0d0"],
-            ['_TNU4_',"0.5d+5 0.5d+5"],
-            ['_VISC2_',"1000.0d0"],
-            ['_VISC4_',"1.0d+3"],
-            ['XCPU',str(self.XCPU)],
-            ['YCPU',str(self.YCPU)],
-            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
-            ['DELTAT',str(self.DELTAT)],
-            ['RATIO',"30"],
-            ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
-            ['STASTEP',str(1*3600/int(self.DELTAT))],
-            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
-            ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
-            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
-            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
-            ['V_TRANS',"2"],
-            ['V_STRETCH',"4"],
-            ['_TNUDG_',"15.0d0 15.0d0"],
-            ['OBCFAKTOR',"3.0"],
-            ['NUDGZONEWIDTH',"10"],
-            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
-            ['INIFILE',self.ROMSRESTART],
-            ['RUNDIR',self.RUNPATH],
-            ['_CLMNAME_',"ocean_clm.nc"],
-            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.PRECIPPATH+"/precip_init.nc | \n"+self.PRECIPPATH+"/precip_1992_monthly.nc | \n"+self.PRECIPPATH+"/precip_1993_monthly.nc | \n"+self.PRECIPPATH+"/precip_1994_monthly.nc | \n"+self.PRECIPPATH+"/precip_1995_monthly.nc | \n"+self.PRECIPPATH+"/precip_1996_monthly.nc | \n"+self.PRECIPPATH+"/precip_1997_monthly.nc | \n"+self.PRECIPPATH+"/precip_1998_monthly.nc | \n"+self.PRECIPPATH+"/precip_1999_monthly.nc | \n"+self.PRECIPPATH+"/precip_2000_monthly.nc | \n"+self.PRECIPPATH+"/precip_2001_monthly.nc | \n"+self.PRECIPPATH+"/precip_2002_monthly.nc | \n"+self.PRECIPPATH+"/precip_2003_monthly.nc | \n"+self.PRECIPPATH+"/precip_2004_monthly.nc | \n"+self.PRECIPPATH+"/precip_2005_monthly.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
-            ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
-            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
-            ['ROMSINFILE', self.ROMSINFILE ],
-            ['CICEINFILE', self.CICEINFILE ],
-            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
-            ['NUMCICECORES',str(int(self.CICECPU))]
-            ]
-            ########################################################################
-            # List of CICE keywords:
-            ########################################################################
-            self.CICEKEYWORDLIST=[
-            ['CICEYEARSTART',start_date.strftime("%Y")],
-            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
-            ['CICEDELTAT',str(self.CICEDELTAT)],
-            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
-            ['CICERUNTYPE',cice_runtype],
-            ['CICEIC',"'mask'"],
-            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
-            ['CICEREST',cicerst_truefalse],
-            ['CICERSTTIME',cicerst_truefalse],
-            ['CICEFYEARINIT',start_date.strftime("%Y")],
-            ['CICEATMDIR',self.ATMPATH],
-            ['CICEPRECIPDIR',self.PRECIPPATH]
-            ]
-            ########################################################################
-            ########################################################################
-        elif app=='circumpolar6':
-            ########################################################################
-            # Name of roms.in keyword-file:
-            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
-            ########################################################################
-            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar6"
-            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
-            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
-            self.BRYPATH=self.DATAPATH+"/ECCO2"
-            self.ROMSINFILE=self.RUNPATH+"/roms.in"
-            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
-            self.CICEINFILE=self.RUNPATH + "/ice_in"
-            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
-            self.TIMEREF=datetime(1992,01,01,00)
-            self.DELTAT=300 
-            self.CICEDELTAT=1800.0
-            self.COUPLINGTIME_I2O=1800.0
-            # Find restart-time of CICE:
-            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
-            if restart == True:
-                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
-                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
-                cice_restartfile = f.readline().strip()
-                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
-                cicerst_truefalse = ".true."
-                cice_runtype = "'continue'"
-            else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
+                self.ROMSRESTART=self.DATAPATH+"/woa_ini.nc"
                 cice_rst_time = cice_start_step
                 cicerst_truefalse = ".false."
                 cice_runtype = "'initial'"
@@ -953,17 +647,322 @@ class Params(object):
             ['V_TRANS',"2"],
             ['V_STRETCH',"4"],
             ['_TNUDG_',"15.0d0 15.0d0"],
+            ['_SSNUDG_',"0.5d0 0.5d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
             ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
             ['INIFILE',self.ROMSRESTART],
             ['RUNDIR',self.RUNPATH],
             ['_CLMNAME_',"ocean_clm.nc"],
-            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_final.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc | \n"+self.ATMPATH+"/AN_2006_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc | \n"+self.ATMPATH+"/FC_2006_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc \ \n"+self.DATAPATH+"/sss_nudge.nc"],
             ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
+            ['_NFFILES_',"4"],
+            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
+            ['ROMSINFILE', self.ROMSINFILE ],
+            ['CICEINFILE', self.CICEINFILE ],
+            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
+            ['NUMCICECORES',str(int(self.CICECPU))]
+            ]
+            ########################################################################
+            # List of CICE keywords:
+            ########################################################################
+            self.CICEKEYWORDLIST=[
+            ['CICEYEARSTART',start_date.strftime("%Y")],
+            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
+            ['CICEDELTAT',str(self.CICEDELTAT)],
+            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
+            ['CICERUNTYPE',cice_runtype],
+            ['CICEIC',"'default'"],
+            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
+            ['CICEREST',cicerst_truefalse],
+            ['CICERSTTIME',cicerst_truefalse],
+            ['CICEFYEARINIT',start_date.strftime("%Y")],
+            ['CICEATMDIR',self.ATMPATH]
+            ]
+            ########################################################################
+            ########################################################################
+        elif app=='circumpolar4':
+            ########################################################################
+            # Name of roms.in keyword-file:
+            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
+            ########################################################################
+            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar4"
+            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
+            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
+            self.BRYPATH=self.DATAPATH+"/ECCO2"
+            self.ROMSINFILE=self.RUNPATH+"/roms.in"
+            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
+            self.CICEINFILE=self.RUNPATH + "/ice_in"
+            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
+            self.TIMEREF=datetime(1992,01,01,00)
+            self.DELTAT=300 
+            self.CICEDELTAT=1800.0
+            self.COUPLINGTIME_I2O=1800.0
+            # Find restart-time of CICE:
+            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
+            if restart == True:
+                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
+                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
+                cice_restartfile = f.readline().strip()
+                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
+                cicerst_truefalse = ".true."
+                cice_runtype = "'continue'"
+            else:
+                self.ROMSRESTART=self.DATAPATH+"/woa_ini.nc"
+                cice_rst_time = cice_start_step
+                cicerst_truefalse = ".false."
+                cice_runtype = "'initial'"
+            ########################################################################
+            # List of keywords:
+            ########################################################################
+            self.KEYWORDLIST=[
+            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
+            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
+            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
+            ['XPOINTS',"1440"],  #Could read from grd-file?
+            ['YPOINTS',"428"],  #Could read from grd-file?
+            ['NLEVELS',"31"],  #Could read from grd-file?
+            ['GRDTHETAS',"7.0d0"],
+            ['GRDTHETAB',"2.0d0"],
+            ['GRDTCLINE',"250.0d0"],            
+            ['_TNU2_',"50.0d0 50.0d0"],
+            ['_TNU4_',"0.5d+5 0.5d+5"],
+            ['_VISC2_',"1000.0d0"],
+            ['_VISC4_',"1.0d+3"],
+            ['XCPU',str(self.XCPU)],
+            ['YCPU',str(self.YCPU)],
+            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
+            ['DELTAT',str(self.DELTAT)],
+            ['RATIO',"30"],
+            ['IRESTART',str(self.NRREC)],
+            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
+            ['STASTEP',str(1*3600/int(self.DELTAT))],
+            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
+            ['STARTAVG',"1"],
+            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
+            ['V_TRANS',"2"],
+            ['V_STRETCH',"4"],
+            ['_TNUDG_',"15.0d0 15.0d0"],
+            ['_SSNUDG_',"0.5d0 0.5d0"],
+            ['OBCFAKTOR',"3.0"],
+            ['NUDGZONEWIDTH',"10"],
+            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
+            ['INIFILE',self.ROMSRESTART],
+            ['RUNDIR',self.RUNPATH],
+            ['_CLMNAME_',"ocean_clm.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_final.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc | \n"+self.ATMPATH+"/AN_2006_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc | \n"+self.ATMPATH+"/FC_2006_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc \ \n"+self.DATAPATH+"/sss_nudge.nc"],
+            ['RIVERFILE',"ocean_rivers.nc"],
+            ['_NFFILES_',"4"],
+            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
+            ['ROMSINFILE', self.ROMSINFILE ],
+            ['CICEINFILE', self.CICEINFILE ],
+            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
+            ['NUMCICECORES',str(int(self.CICECPU))]
+            ]
+            ########################################################################
+            # List of CICE keywords:
+            ########################################################################
+            self.CICEKEYWORDLIST=[
+            ['CICEYEARSTART',start_date.strftime("%Y")],
+            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
+            ['CICEDELTAT',str(self.CICEDELTAT)],
+            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
+            ['CICERUNTYPE',cice_runtype],
+            ['CICEIC',"'default'"],
+            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
+            ['CICEREST',cicerst_truefalse],
+            ['CICERSTTIME',cicerst_truefalse],
+            ['CICEFYEARINIT',start_date.strftime("%Y")],
+            ['CICEATMDIR',self.ATMPATH]
+            ]
+            ########################################################################
+            ########################################################################
+        elif app=='circumpolar5':
+            ########################################################################
+            # Name of roms.in keyword-file:
+            ########################################################################
+            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar5"
+            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
+            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
+            self.BRYPATH=self.DATAPATH+"/ECCO2/old"
+            self.ROMSINFILE=self.RUNPATH+"/roms.in"
+            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
+            self.CICEINFILE=self.RUNPATH + "/ice_in"
+            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
+            self.TIMEREF=datetime(1992,01,01,00)
+            self.DELTAT=300 
+            self.CICEDELTAT=1800.0
+            self.COUPLINGTIME_I2O=86400.0
+            # Find restart-time of CICE:
+            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
+            if restart == True:
+                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
+                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
+                cice_restartfile = f.readline().strip()
+                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
+                cicerst_truefalse = ".true."
+                cice_runtype = "'continue'"
+            else:
+                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini_old.nc"
+                cice_rst_time = cice_start_step
+                cicerst_truefalse = ".false."
+                cice_runtype = "'initial'"
+            ########################################################################
+            # List of keywords:
+            ########################################################################
+            self.KEYWORDLIST=[
+            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
+            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
+            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
+            ['XPOINTS',"1440"],  #Could read from grd-file?
+            ['YPOINTS',"428"],  #Could read from grd-file?
+            ['NLEVELS',"31"],  #Could read from grd-file?
+            ['GRDTHETAS',"4.0d0"],
+            ['GRDTHETAB',"0.9d0"],
+            ['GRDTCLINE',"40.0d0"],            
+            ['_TNU2_',"500.0d0 500.0d0"],
+            ['_TNU4_',"0.5d+5 0.5d+5"],
+            ['_VISC2_',"1000.0d0"],
+            ['_VISC4_',"1.0d+3"],
+            ['XCPU',str(self.XCPU)],
+            ['YCPU',str(self.YCPU)],
+            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
+            ['DELTAT',str(self.DELTAT)],
+            ['RATIO',"30"],
+            ['IRESTART',str(self.NRREC)],
+            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['STASTEP',str(1*3600/int(self.DELTAT))],
+            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['STARTAVG',"1"],
+            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
+            ['V_TRANS',"2"],
+            ['V_STRETCH',"2"],
+            ['_TNUDG_',"15.0d0 15.0d0"],
+            ['OBCFAKTOR',"3.0"],
+            ['NUDGZONEWIDTH',"10"],
+            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree_old.nc"],
+            ['INIFILE',self.ROMSRESTART],
+            ['RUNDIR',self.RUNPATH],
+            ['_CLMNAME_',"ocean_clm.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['RIVERFILE',"ocean_rivers.nc"],
+            ['_NFFILES_',"3"],
+            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
+            ['ROMSINFILE', self.ROMSINFILE ],
+            ['CICEINFILE', self.CICEINFILE ],
+            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
+            ['NUMCICECORES',str(int(self.CICECPU))]
+            ]
+            ########################################################################
+            # List of CICE keywords:
+            ########################################################################
+            self.CICEKEYWORDLIST=[
+            ['CICEYEARSTART',start_date.strftime("%Y")],
+            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
+            ['CICEDELTAT',str(self.CICEDELTAT)],
+            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
+            ['CICERUNTYPE',cice_runtype],
+            ['CICEIC',"'mask'"],
+            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
+            ['CICEREST',cicerst_truefalse],
+            ['CICERSTTIME',cicerst_truefalse],
+            ['CICEFYEARINIT',start_date.strftime("%Y")],
+            ['CICEATMDIR',self.ATMPATH]
+            ]
+            ########################################################################
+            ########################################################################
+        elif app=='circumpolar6':
+            ########################################################################
+            # Name of roms.in keyword-file:
+            ########################################################################
+            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar6"
+            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
+            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
+            self.BRYPATH=self.DATAPATH+"/ECCO2/old"
+            self.ROMSINFILE=self.RUNPATH+"/roms.in"
+            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
+            self.CICEINFILE=self.RUNPATH + "/ice_in"
+            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
+            self.TIMEREF=datetime(1992,01,01,00)
+            self.DELTAT=300 
+            self.CICEDELTAT=1800.0
+            self.COUPLINGTIME_I2O=1800.0
+            # Find restart-time of CICE:
+            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
+            if restart == True:
+                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
+                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
+                cice_restartfile = f.readline().strip()
+                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
+                cicerst_truefalse = ".true."
+                cice_runtype = "'continue'"
+            else:
+                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini_old.nc"
+                cice_rst_time = cice_start_step
+                cicerst_truefalse = ".false."
+                cice_runtype = "'initial'"
+            ########################################################################
+            # List of keywords:
+            ########################################################################
+            self.KEYWORDLIST=[
+            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
+            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
+            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
+            ['XPOINTS',"1440"],  #Could read from grd-file?
+            ['YPOINTS',"428"],  #Could read from grd-file?
+            ['NLEVELS',"31"],  #Could read from grd-file?
+            ['GRDTHETAS',"4.0d0"],
+            ['GRDTHETAB',"0.9d0"],
+            ['GRDTCLINE',"40.0d0"],            
+            ['_TNU2_',"500.0d0 500.0d0"],
+            ['_TNU4_',"0.5d+5 0.5d+5"],
+            ['_VISC2_',"1000.0d0"],
+            ['_VISC4_',"1.0d+3"],
+            ['XCPU',str(self.XCPU)],
+            ['YCPU',str(self.YCPU)],
+            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
+            ['DELTAT',str(self.DELTAT)],
+            ['RATIO',"30"],
+            ['IRESTART',str(self.NRREC)],
+            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['STASTEP',str(1*3600/int(self.DELTAT))],
+            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['STARTAVG',"1"],
+            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
+            ['V_TRANS',"2"],
+            ['V_STRETCH',"2"],
+            ['_TNUDG_',"15.0d0 15.0d0"],
+            ['OBCFAKTOR',"3.0"],
+            ['NUDGZONEWIDTH',"10"],
+            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree_old.nc"],
+            ['INIFILE',self.ROMSRESTART],
+            ['RUNDIR',self.RUNPATH],
+            ['_CLMNAME_',"ocean_clm.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc | \n"+self.ATMPATH+"/AN_2006_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc | \n"+self.ATMPATH+"/FC_2006_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['RIVERFILE',"ocean_rivers.nc"],
+            ['_NFFILES_',"3"],
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
             ['CICEINFILE', self.CICEINFILE ],
@@ -991,12 +990,11 @@ class Params(object):
         elif app=='circumpolar7':
             ########################################################################
             # Name of roms.in keyword-file:
-            self.KEYWORDFILE=GlobalParams.COMMONORIGPATH+"/roms_keyword.in_roms-trunk2"
             ########################################################################
             self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar7"
             self.DATAPATH=GlobalParams.METROMSDIR+"/data"
             self.ATMPATH=self.DATAPATH+"/ERA_Interim"
-            self.BRYPATH=self.DATAPATH+"/ECCO2"
+            self.BRYPATH=self.DATAPATH+"/ECCO2/old"
             self.ROMSINFILE=self.RUNPATH+"/roms.in"
             self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
             self.CICEINFILE=self.RUNPATH + "/ice_in"
@@ -1015,7 +1013,7 @@ class Params(object):
                 cicerst_truefalse = ".true."
                 cice_runtype = "'continue'"
             else:
-                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini.nc"
+                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini_old.nc"
                 cice_rst_time = cice_start_step
                 cicerst_truefalse = ".false."
                 cice_runtype = "'initial'"
@@ -1029,9 +1027,110 @@ class Params(object):
             ['XPOINTS',"1440"],  #Could read from grd-file?
             ['YPOINTS',"428"],  #Could read from grd-file?
             ['NLEVELS',"31"],  #Could read from grd-file?
-            ['GRDTHETAS',"7.0d0"],
-            ['GRDTHETAB',"2.0d0"],
-            ['GRDTCLINE',"250.0d0"],            
+            ['GRDTHETAS',"4.0d0"],
+            ['GRDTHETAB',"0.9d0"],
+            ['GRDTCLINE',"40.0d0"],            
+            ['_TNU2_',"500.0d0 500.0d0"],
+            ['_TNU4_',"0.5d+5 0.5d+5"],
+            ['_VISC2_',"1000.0d0"],
+            ['_VISC4_',"1.0d+3"],
+            ['XCPU',str(self.XCPU)],
+            ['YCPU',str(self.YCPU)],
+            ['TSTEPS',str(self.FCLEN/self.DELTAT)],
+            ['DELTAT',str(self.DELTAT)],
+            ['RATIO',"30"],
+            ['IRESTART',str(self.NRREC)],
+            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
+            ['STASTEP',str(1*3600/int(self.DELTAT))],
+            ['INFOSTEP', str(1*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
+            ['STARTAVG',"1"],
+            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
+            ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
+            ['V_TRANS',"2"],
+            ['V_STRETCH',"2"],
+            ['_TNUDG_',"15.0d0 15.0d0"],
+            ['OBCFAKTOR',"3.0"],
+            ['NUDGZONEWIDTH',"10"],
+            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree_old.nc"],
+            ['INIFILE',self.ROMSRESTART],
+            ['RUNDIR',self.RUNPATH],
+            ['_CLMNAME_',"ocean_clm.nc"],
+            ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc | \n"+self.ATMPATH+"/AN_2006_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc | \n"+self.ATMPATH+"/FC_2006_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['RIVERFILE',"ocean_rivers.nc"],
+            ['_NFFILES_',"3"],
+            ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
+            ['ROMSINFILE', self.ROMSINFILE ],
+            ['CICEINFILE', self.CICEINFILE ],
+            ['NUMROMSCORES',str(int(self.XCPU)*int(self.YCPU))],
+            ['NUMCICECORES',str(int(self.CICECPU))]
+            ]
+            ########################################################################
+            # List of CICE keywords:
+            ########################################################################
+            self.CICEKEYWORDLIST=[
+            ['CICEYEARSTART',start_date.strftime("%Y")],
+            ['CICESTARTSTEP',str(int(cice_start_step))],  #number of hours after 00:00 Jan 1st
+            ['CICEDELTAT',str(self.CICEDELTAT)],
+            ['CICENPT',str(int((self.FCLEN/self.CICEDELTAT)-(cice_rst_time - cice_start_step)))],   # minus diff restart og start_date
+            ['CICERUNTYPE',cice_runtype],
+            ['CICEIC',"'mask'"],
+            ['CICEMASKICFILE',"'"+self.DATAPATH+"/cice_ini.nc'"],
+            ['CICEREST',cicerst_truefalse],
+            ['CICERSTTIME',cicerst_truefalse],
+            ['CICEFYEARINIT',start_date.strftime("%Y")],
+            ['CICEATMDIR',self.ATMPATH]
+            ]
+            ########################################################################
+            ########################################################################
+        elif app=='circumpolar8':
+            ########################################################################
+            # Name of roms.in keyword-file:
+            ########################################################################
+            self.RUNPATH=GlobalParams.RUNDIR+"/circumpolar8"
+            self.DATAPATH=GlobalParams.METROMSDIR+"/data"
+            self.ATMPATH=self.DATAPATH+"/ERA_Interim"
+            self.BRYPATH=self.DATAPATH+"/ECCO2/old"
+            self.ROMSINFILE=self.RUNPATH+"/roms.in"
+            self.CICERUNDIR=self.RUNPATH+'/cice/rundir'
+            self.CICEINFILE=self.RUNPATH + "/ice_in"
+            self.CICEKEYWORDFILE=self.CICERUNDIR + "/ice_in"
+            self.TIMEREF=datetime(1992,01,01,00)
+            self.DELTAT=300 
+            self.CICEDELTAT=1800.0
+            self.COUPLINGTIME_I2O=1800.0
+            # Find restart-time of CICE:
+            cice_start_step = (start_date-datetime(start_date.year,01,01,00)).total_seconds()/self.CICEDELTAT
+            if restart == True:
+                self.ROMSRESTART=self.RUNPATH+"/ocean_rst.nc"
+                f = open(self.CICERUNDIR+'/restart/ice.restart_file', 'r')
+                cice_restartfile = f.readline().strip()
+                cice_rst_time = netCDF4.Dataset(cice_restartfile).istep1
+                cicerst_truefalse = ".true."
+                cice_runtype = "'continue'"
+            else:
+                self.ROMSRESTART=self.DATAPATH+"/ecco2_ini_old.nc"
+                cice_rst_time = cice_start_step
+                cicerst_truefalse = ".false."
+                cice_runtype = "'initial'"
+            ########################################################################
+            # List of keywords:
+            ########################################################################
+            self.KEYWORDLIST=[
+            ['APPTITLE',"Coupled ROMS-CICE with Ice Shelves"],
+            ['MYAPPCPPNAME',"CIRCUMPOLAR"],
+            ['VARFILE',GlobalParams.COMMONPATH+"/include/varinfo.dat"],
+            ['XPOINTS',"1440"],  #Could read from grd-file?
+            ['YPOINTS',"428"],  #Could read from grd-file?
+            ['NLEVELS',"31"],  #Could read from grd-file?
+            ['GRDTHETAS',"4.0d0"],
+            ['GRDTHETAB',"0.9d0"],
+            ['GRDTCLINE',"40.0d0"],            
             ['_TNU2_',"50.0d0 50.0d0"],
             ['_TNU4_',"0.5d+5 0.5d+5"],
             ['_VISC2_',"1000.0d0"],
@@ -1042,31 +1141,30 @@ class Params(object):
             ['DELTAT',str(self.DELTAT)],
             ['RATIO',"30"],
             ['IRESTART',str(self.NRREC)],
-            ['RSTSTEP',str(90*24*3600/int(self.DELTAT))],
+            ['RSTSTEP',str(366*24*3600/int(self.DELTAT))],
             ['STASTEP',str(1*3600/int(self.DELTAT))],
             ['INFOSTEP', str(1*3600/int(self.DELTAT))],
-            ['HISSTEPP', str(5*24*3600/int(self.DELTAT))],
-            ['DEFHISSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
-            ['AVGSTEPP',str(5*24*3600/int(self.DELTAT))],
+            ['HISSTEPP', str(1*24*3600/int(self.DELTAT))],
+            ['DEFHISSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one his-file
+            ['AVGSTEPP',str(1*24*3600/int(self.DELTAT))],
             ['STARTAVG',"1"],
-            ['DEFAVGSTEP',str(90*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
+            ['DEFAVGSTEP',str(366*24*3600/int(self.DELTAT))],  #if 0; all output in one avg-file
             ['STARTTIME',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIDEREF',str((start_date-self.TIMEREF).total_seconds()/86400)],
             ['TIMEREF',self.TIMEREF.strftime("%Y%m%d.00")],
             ['V_TRANS',"2"],
-            ['V_STRETCH',"4"],
+            ['V_STRETCH',"2"],
             ['_TNUDG_',"15.0d0 15.0d0"],
             ['OBCFAKTOR',"3.0"],
             ['NUDGZONEWIDTH',"10"],
-            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree.nc"],
+            ['GRDFILE',GlobalParams.COMMONPATH+"/grid/circ30S_quarterdegree_old.nc"],
             ['INIFILE',self.ROMSRESTART],
             ['RUNDIR',self.RUNPATH],
             ['_CLMNAME_',"ocean_clm.nc"],
             ['_BRYNAME_',self.BRYPATH+"/ecco2_cube92_lbc_init.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1992.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1993.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1994.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1995.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1996.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1997.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1998.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_1999.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2000.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2001.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2002.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2003.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2004.nc | \n"+self.BRYPATH+"/ecco2_cube92_lbc_2005.nc \n"],
-            ['TIDEDIR',self.DATAPATH],
-            ['ATMDIR',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
+            ['FRCFILES',self.ATMPATH+"/AN_1992_subdaily.nc | \n"+self.ATMPATH+"/AN_1993_subdaily.nc | \n"+self.ATMPATH+"/AN_1994_subdaily.nc | \n"+self.ATMPATH+"/AN_1995_subdaily.nc | \n"+self.ATMPATH+"/AN_1996_subdaily.nc | \n"+self.ATMPATH+"/AN_1997_subdaily.nc | \n"+self.ATMPATH+"/AN_1998_subdaily.nc | \n"+self.ATMPATH+"/AN_1999_subdaily.nc | \n"+self.ATMPATH+"/AN_2000_subdaily.nc | \n"+self.ATMPATH+"/AN_2001_subdaily.nc | \n"+self.ATMPATH+"/AN_2002_subdaily.nc | \n"+self.ATMPATH+"/AN_2003_subdaily.nc | \n"+self.ATMPATH+"/AN_2004_subdaily.nc | \n"+self.ATMPATH+"/AN_2005_subdaily.nc \ \n"+self.ATMPATH+"/FC_1992_subdaily.nc | \n"+self.ATMPATH+"/FC_1993_subdaily.nc | \n"+self.ATMPATH+"/FC_1994_subdaily.nc | \n"+self.ATMPATH+"/FC_1995_subdaily.nc | \n"+self.ATMPATH+"/FC_1996_subdaily.nc | \n"+self.ATMPATH+"/FC_1997_subdaily.nc | \n"+self.ATMPATH+"/FC_1998_subdaily.nc | \n"+self.ATMPATH+"/FC_1999_subdaily.nc | \n"+self.ATMPATH+"/FC_2000_subdaily.nc | \n"+self.ATMPATH+"/FC_2001_subdaily.nc | \n"+self.ATMPATH+"/FC_2002_subdaily.nc | \n"+self.ATMPATH+"/FC_2003_subdaily.nc | \n"+self.ATMPATH+"/FC_2004_subdaily.nc | \n"+self.ATMPATH+"/FC_2005_subdaily.nc \ \n"+self.ATMPATH+"/icebergs.nc"],
             ['RIVERFILE',"ocean_rivers.nc"],
-            ['FORCEFILES',"4"],
+            ['_NFFILES_',"3"],
             ['COUPLINGTIMEI2O',str(self.COUPLINGTIME_I2O)],
             ['ROMSINFILE', self.ROMSINFILE ],
             ['CICEINFILE', self.CICEINFILE ],
