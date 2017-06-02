@@ -363,7 +363,6 @@ LtracerSponge == F F                            ! temperature, salinity, inert
 ! internally, [1:Ngrids].
 
        TNUDG == _TNUDG_              ! days
-       SSNUDG == _SSNUDG_            ! days
        ZNUDG == 0.0d0                      ! days
       M2NUDG == 0.0d0                      ! days
       M3NUDG == 5.0d0                     ! days

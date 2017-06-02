@@ -1252,7 +1252,7 @@
       !-----------------------------------------------------------------
 
       if (trim(ice_ic) == 'mask') then
-        call ice_open_nc(trim(ice_ic_file),fid)
+        call ice_open_nc(ice_ic_file,fid)
 	call ice_read_nc(fid, 1, 'aice', aice_mask, .true., &
 	                 field_loc_center, field_type_scalar)
 	call ice_close_nc(fid)

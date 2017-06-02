@@ -3,6 +3,7 @@
 *.nc
 *.pyc
 branch_info
+benchmarking
 tmproms/
 static_libs/cice5.1.2.tar.gz
 static_libs/mct-2.9.tar.gz
@@ -31,3 +32,4 @@ apps/common/modified_src/roms-trunk_brinerejection/
 apps/common/modified_src/era_precip/
 apps/common/modified_src/monthly_precip
 static_libs/roms-trunk/
+data/

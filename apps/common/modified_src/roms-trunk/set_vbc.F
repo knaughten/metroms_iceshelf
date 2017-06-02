@@ -432,7 +432,7 @@
           ! Don't apply correction if lat<lat0 and h<h0, or in ice shelf
           ! cavities. In these cases, flag=0; otherwise, flag=1
           flag=(1.0_r8-MIN(SIGN(1.0_r8,latr(i,j)-lat0),0.0_r8)*         &
-     &                MIN(SIGN(1.0_r8,h(i,j)-h0),0.0_r8))*              &
+     &                 MIN(SIGN(1.0_r8,h(i,j)-h0),0.0_r8))*             &
      &         (1.0_r8+MIN(SIGN(1.0_r8,zice(i,j)),0.0_r8))
 #   else
           flag=1.0_r8

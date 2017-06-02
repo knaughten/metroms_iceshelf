@@ -37,19 +37,20 @@
 
 #define TS_DIF2            /* turn ON or OFF Laplacian horizontal mixing */
 #undef TS_DIF4            /* turn ON or OFF biharmonic horizontal mixing */
-#define TS_U3HADVECTION    /* define if 3rd-order upstream horiz. advection */
-#undef  TS_A4HADVECTION    /* define if 4th-order Akima horiz. advection */
+#undef TS_U3HADVECTION    /* define if 3rd-order upstream horiz. advection */
+#define TS_A4HADVECTION    /* define if 4th-order Akima horiz. advection */
 #undef  TS_C4HADVECTION    /* define if 4th-order centered horizontal advection */
 
 #undef TS_MPDATA          /* define if recursive MPDATA 3D advection */
+#undef TS_U3ADV_SPLIT
 
 #ifdef TS_U3HADVECTION
 # define UPWIND_LIMITER
 #endif
 
-#undef TS_A4VADVECTION    /* define if 4th-order Akima vertical advection */
+#define TS_A4VADVECTION    /* define if 4th-order Akima vertical advection */
 #undef TS_SVADVECTION     /* define if splines vertical advection */
-#define TS_C4VADVECTION    /* define if 4th-order centered vertical advection */
+#undef TS_C4VADVECTION    /* define if 4th-order centered vertical advection */
 #undef  TS_SMAGORINSKY     /* define if Smagorinsky-like diffusion */
 
 #undef MIX_GEO_TS         /* mixing on geopotential (constant Z) surfaces */
@@ -91,7 +92,7 @@
 # define LMD_RIMIX         /* use to add diffusivity due to shear instability */
 # define LMD_SHAPIRO       /* use if Shapiro filtering boundary layer depth */
 # define LMD_SKPP          /* use if surface boundary layer KPP mixing */
-# undef LMD_MDMOD         /* Mike Dinnimann's modification */
+# define LMD_MDMOD         /* Mike Dinnimann's modification */
 #endif
 
 #define ANA_BSFLUX         /* analytical bottom salinity flux */

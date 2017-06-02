@@ -1009,7 +1009,7 @@
 
 #ifdef ncdf
       integer (kind=int_kind) :: &
-        status        ! status variable from netCDF routine 
+        status        ! status variable from netCDF routine
 
       if (my_task == master_task) then
 
