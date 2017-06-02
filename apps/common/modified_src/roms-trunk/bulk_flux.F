@@ -118,9 +118,6 @@
      &                     FORCES(ng) % Lwave,                          &
 # endif
      &                     FORCES(ng) % rain,                           &
-# ifdef ICEBERGS
-     &                     FORCES(ng) % icebergs,                       &
-# endif
      &                     FORCES(ng) % lhflx,                          &
      &                     FORCES(ng) % lrflx,                          &
      &                     FORCES(ng) % shflx,                          &
@@ -170,9 +167,6 @@
      &                           Lwave,                                 &
 # endif
      &                           rain,                                  &
-# ifdef ICEBERGS
-     &                           icebergs,                              &
-# endif
      &                           lhflx, lrflx, shflx,                   &
      &                           srflx, stflx,                          &
 # ifdef EMINUSP
@@ -234,9 +228,6 @@
       real(r8), intent(in) :: Lwave(LBi:,LBj:)
 # endif
       real(r8), intent(in) :: rain(LBi:,LBj:)
-# ifdef ICEBERGS
-      real(r8), intent(in) :: icebergs(LBi:,LBj:)
-# endif
 
       real(r8), intent(inout) :: lhflx(LBi:,LBj:)
       real(r8), intent(inout) :: lrflx(LBi:,LBj:)
@@ -288,9 +279,6 @@
       real(r8), intent(in) :: Lwave(LBi:UBi,LBj:UBj)
 # endif
       real(r8), intent(in) :: rain(LBi:UBi,LBj:UBj)
-# ifdef ICEBERGS
-      real(r8), intent(in) :: icebergs(LBi:UBi,LBj:UBj)
-# endif
 
       real(r8), intent(inout) :: lhflx(LBi:UBi,LBj:UBj)
       real(r8), intent(inout) :: lrflx(LBi:UBi,LBj:UBj)
@@ -766,13 +754,8 @@
           cff=Qair(i)*Hlv(i,j)/(blk_Rgas*TairK(i)*TairK(i))
           wet_bulb=1.0_r8/(1.0_r8+0.622_r8*(cff*Hlv(i,j)*diffw)/        &
      &                                     (blk_Cpa*diffh))
-# ifdef ICEBERGS
-          Hsr=(rain(i,j)+icebergs(i,j))*wet_bulb*blk_Cpw*               &
-     &        ((TseaC(i)-TairC(i))+(Qsea(i)-Q(i))*Hlv(i,j)/blk_Cpa)
-# else
           Hsr=rain(i,j)*wet_bulb*blk_Cpw*                               &
      &        ((TseaC(i)-TairC(i))+(Qsea(i)-Q(i))*Hlv(i,j)/blk_Cpa)
-# endif
         SHeat(i,j)=(Hs+Hsr)
 # ifdef MASKING
           SHeat(i,j)=SHeat(i,j)*rmask(i,j)
@@ -800,11 +783,7 @@
 !
 !  Compute momentum flux (N/m2) due to rainfall (kg/m2/s).
 !
-# ifdef ICEBERGS
-          Taur=0.85_r8*(rain(i,j)+icebergs(i,j))*Wmag(i)
-# else
           Taur=0.85_r8*rain(i,j)*Wmag(i)
-# endif
 !
 !  Compute wind stress components (N/m2), Tau.
 !
@@ -871,11 +850,7 @@
 # endif
 # ifdef EMINUSP
           evap(i,j)=LHeat(i,j)/Hlv(i,j)
-#  ifdef ICEBERGS
-          stflx(i,j,isalt)=cff*(evap(i,j)-rain(i,j)-icebergs(i,j))
-#  else
           stflx(i,j,isalt)=cff*(evap(i,j)-rain(i,j))
-#  endif
 #  ifdef MASKING
           evap(i,j)=evap(i,j)*rmask(i,j)
           stflx(i,j,isalt)=stflx(i,j,isalt)*rmask(i,j)
@@ -887,11 +862,7 @@
           EminusP(i,j)=stflx(i,j,isalt)
 # else
 #  ifdef SEPARATE_EVAP
-#    ifdef ICEBERGS
-          stflx(i,j,isalt)=cff*(evap(i,j)-rain(i,j)-icebergs(i,j))
-#    else
           stflx(i,j,isalt)=cff*(evap(i,j)-rain(i,j))
-#    endif
 #    ifdef MASKING
           stflx(i,j,isalt)=stflx(i,j,isalt)*rmask(i,j)
 #    endif

@@ -79,6 +79,9 @@
 #  ifdef SCORRECTION_MASK
      &                   GRID(ng)%latr, GRID(ng)%h, GRID(ng)%zice,      &
 #  endif
+#  ifdef ICEBERGS
+     &                   FORCES(ng) % icebergs,                         &
+#  endif
 #  if defined CICE_COUPLING
 #   if defined SHORTWAVE 
      &                   FORCES(ng) % srflx,                            &
@@ -139,6 +142,9 @@
 #  endif
 #  ifdef SCORRECTION_MASK
      &                         latr, h,  zice,                          &
+#  endif
+#  ifdef ICEBERGS
+     &                         icebergs,                                &
 #  endif
 #  if defined CICE_COUPLING
 #   ifdef SHORTWAVE
@@ -212,6 +218,9 @@
       real(r8), intent(in) :: h(LBi:,LBj:)
       real(r8), intent(in) :: zice(LBi:,LBj:)
 #   endif
+#   ifdef ICEBERGS
+      real(r8), intent(in) :: icebergs(LBi:,LBj:)
+#   endif
 #   if defined CICE_COUPLING
 #    ifdef SHORTWAVE
       real(r8), intent(inout) :: srflx(LBi:,LBj:)
@@ -266,6 +275,9 @@
       real(r8), intent(in) :: latr(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: h(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: zice(LBi:UBi,LBj:UBj)
+#   endif
+#   ifdef ICEBERGS
+      real(r8), intent(in) :: icebergs(LBi:UBi,LBj:UBj)
 #   endif
 #   if defined CICE_COUPLING
 #    ifdef SHORTWAVE
@@ -420,6 +432,24 @@
 #   endif
 #  endif
 
+#  ifdef ICEBERGS
+! Add extra freshwater flux from iceberg melt.
+      cff=1.0_r8/rhow
+      DO j=JstrR,JendR
+        DO i=IstrR,IendR
+          stflx(i,j,isalt)=stflx(i,j,isalt)-                            &
+     &                     cff*t(i,j,N(ng),nrhs,isalt)*icebergs(i,j)
+        END DO
+      END DO
+#   ifdef DISTRIBUTE
+      CALL mp_exchange2d (ng, tile, iNLM, 3,                            &
+     &                    LBi, UBi, LBj, UBj,                           &
+     &                    NghostPoints,                                 &
+     &                    EWperiodic(ng), NSperiodic(ng),               &
+     &                    stflx(:,:,isalt))
+#   endif
+#  endif
+
 #  if defined SALINITY && (defined SCORRECTION || defined SRELAXATION)
 !
 !-----------------------------------------------------------------------
@@ -451,6 +481,13 @@
 #   endif
         END DO
       END DO
+#   ifdef DISTRIBUTE
+      CALL mp_exchange2d (ng, tile, iNLM, 3,                            &
+     &                    LBi, UBi, LBj, UBj,                           &
+     &                    NghostPoints,                                 &
+     &                    EWperiodic(ng), NSperiodic(ng),               &
+     &                    stflx(:,:,isalt))
+#   endif
 #  endif
 
 #  ifndef BBL_MODEL

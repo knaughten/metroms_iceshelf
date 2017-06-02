@@ -1483,7 +1483,7 @@
   'time'
   'idicebergs'
   'r2dvar'
-  0.023148d0
+  1.0d0
 
 'evaporation'                                      ! Input
   'evaporation rate'

@@ -62,8 +62,7 @@
             sss_file, &
            pslv_file, &
          sublim_file, &
-           snow_file, &
-        iceberg_file
+           snow_file
 
       character (char_len_long), dimension(ncat) :: &  ! input data file names
         topmelt_file, &
@@ -103,8 +102,7 @@
            uocn_data, &
            vocn_data, &
          sublim_data, &
-          frain_data, &
-       ficeberg_data
+          frain_data
 
       real (kind=dbl_kind), & 
            dimension(nx_block,ny_block,2,max_blocks,ncat) :: &
@@ -1251,7 +1249,6 @@
          tmpname = data_file
          i = index(data_file,'_subdaily.nc') - 5
 	 ! Only overwrite if the filename matches this pattern
-	 ! This way the monthly climatology iceberg file will be ignored
 	 if (i > 0) then
 	   write(data_file,'(a,i4.4,a)') tmpname(1:i), yr, '_subdaily.nc'
 	 endif
@@ -2629,8 +2626,6 @@
       rhoa_file  = tair_file
       flw_file   = tair_file      
 
-      iceberg_file = trim(atm_data_dir)//'icebergs.nc'
-
       if (my_task == master_task) then
          write (nu_diag,*) ' '
          write (nu_diag,*) 'Forcing data year =', fyear
@@ -2642,7 +2637,6 @@
          write (nu_diag,*) trim(tair_file)
          write (nu_diag,*) trim(humid_file)
          write (nu_diag,*) trim(rhoa_file)
-	 write (nu_diag,*) trim(iceberg_file)
       endif                     ! master_task
 
       end subroutine ecmwf_files
@@ -2693,9 +2687,6 @@
 	  e_sat,              &! saturation vapour pressure (used to calculate specific humidity)
 	  vap_p               ! vapour pressure (used to calculate specific humidity)
 
-      real (kind=dbl_kind), dimension (nx_block,ny_block,max_blocks) :: &
-           ficeberg     ! freshwater flux from iceberg melt
-
       character (char_len) :: & 
            fieldname    ! field name in netcdf file
 
@@ -2707,75 +2698,6 @@
 
       dbug=.false.
       if (istep1 > check_step) dbug = .true.  !! debugging
-
-      ficeberg(:,:,:) = 0.0_dbl_kind
-
-
-    !-------------------------------------------------------------------
-    ! monthly data
-    !
-    ! Assume that monthly data values are located in the middle of the
-    ! month.
-    !-------------------------------------------------------------------
-
-      midmonth = 15  ! data is given on 15th of every month
-!      midmonth = fix(p5 * real(daymo(month)))  ! exact middle
-
-      ! Compute record numbers for surrounding months
-      maxrec = 12
-      ixm  = mod(month+maxrec-2,maxrec) + 1
-      ixp  = mod(month,         maxrec) + 1
-      if (mday >= midmonth) ixm = -99  ! other two points will be used
-      if (mday <  midmonth) ixp = -99
-
-      ! Determine whether interpolation will use values 1:2 or 2:3
-      ! recslot = 2 means we use values 1:2, with the current value (2)
-      !  in the second slot
-      ! recslot = 1 means we use values 2:3, with the current value (2)
-      !  in the first slot
-      recslot = 1                             ! latter half of month
-      if (mday < midmonth) recslot = 2        ! first half of month
-
-      ! Find interpolation coefficients
-      call interp_coeff_monthly (recslot)
-
-      ! Read 2 monthly values
-      readm = .false.
-      if (istep==1 .or. (mday==midmonth .and. sec==0)) readm = .true.
-
-      if (readm .and. my_task == master_task ) &
-           write (nu_diag,*) ' Reads monthly fields at', fyear, month, mday, sec
-
-      ! -----------------------------------------------------------
-      ! Icebergs
-      ! -----------------------------------------------------------
-
-      fieldname='icebergs'
-
-      call read_data_nc (readm, 0, fyear, ixm, month, ixp, &
-                      maxrec, iceberg_file, fieldname, ficeberg_data, &
-                 field_loc_center, field_type_scalar, forcing_halo=.true.)
-
-      ! Interpolate to current time step
-      call interpolate_data (ficeberg_data, ficeberg)
-
-      ! convert precipitation units to kg/m^2 s
-      if (trim(precip_units) == 'mm_per_month') then
-         precip_factor = c12/(secday*days_per_year)
-      elseif (trim(precip_units) == 'mm_per_day') then
-         precip_factor = c1/secday
-      elseif (trim(precip_units) == 'm_per_12hr') then
-         precip_factor = c1/43.2_dbl_kind
-      elseif (trim(precip_units) == 'mm_per_sec' .or. &
-           trim(precip_units) == 'mks') then
-	 precip_factor = c1   ! mm/sec = kg/m^2 s
-      endif
-!      if (my_task == master_task) write(nu_diag,*) 'ecmwf_data: precip_factor ', precip_factor
-
-      !$OMP PARALLEL DO PRIVATE(iblk)
-      do iblk = 1, nblocks
-         ficeberg(:,:,iblk)=ficeberg(:,:,iblk)*precip_factor
-      end do
 
     !-------------------------------------------------------------------
     ! 12-hourly data
@@ -2849,8 +2771,6 @@
          !$OMP PARALLEL DO PRIVATE(iblk)
          do iblk = 1, nblocks
             frain(:,:,iblk)=frain(:,:,iblk)*precip_factor
-	    ! Add iceberg fluxes to rain
-	    frain(:,:,iblk)=frain(:,:,iblk)+ficeberg(:,:,iblk)
          end do
 	 
 
