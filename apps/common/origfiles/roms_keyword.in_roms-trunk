@@ -562,13 +562,13 @@ Hout(idShea) == F       ! sensible           sensible heat flux
 Hout(idLrad) == T       ! lwrad              longwave radiation flux
 Hout(idSrad) == T       ! swrad              shortwave radiation flux
 Hout(idEmPf) == F       ! EminusP            E-P flux
-Hout(idevap) == T       ! evaporation        evaporation rate
-Hout(idrain) == T       ! rain               precipitation rate
+Hout(idevap) == F       ! evaporation        evaporation rate
+Hout(idrain) == F       ! rain               precipitation rate
 
 Hout(idDano) == T       ! rho                density anomaly
-Hout(idVvis) == T       ! AKv                vertical viscosity
-Hout(idTdif) == T       ! AKt                vertical T-diffusion
-Hout(idSdif) == T       ! AKs                vertical Salinity diffusion
+Hout(idVvis) == F       ! AKv                vertical viscosity
+Hout(idTdif) == F       ! AKt                vertical T-diffusion
+Hout(idSdif) == F       ! AKs                vertical Salinity diffusion
 Hout(idHsbl) == T       ! Hsbl               depth of surface boundary layer
 Hout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 Hout(idMtke) == F       ! tke                turbulent kinetic energy
@@ -741,13 +741,13 @@ Aout(idLhea) == F       ! latent             latent heat flux
 Aout(idShea) == F       ! sensible           sensible heat flux
 Aout(idLrad) == T       ! lwrad              longwave radiation flux
 Aout(idSrad) == T       ! swrad              shortwave radiation flux
-Aout(idevap) == T       ! evaporation        evaporation rate
-Aout(idrain) == T       ! rain               precipitation rate
+Aout(idevap) == F       ! evaporation        evaporation rate
+Aout(idrain) == F       ! rain               precipitation rate
 
 Aout(idDano) == T       ! rho                density anomaly
-Aout(idVvis) == T       ! AKv                vertical viscosity
-Aout(idTdif) == T       ! AKt                vertical T-diffusion
-Aout(idSdif) == T       ! AKs                vertical Salinity diffusion
+Aout(idVvis) == F       ! AKv                vertical viscosity
+Aout(idTdif) == F       ! AKt                vertical T-diffusion
+Aout(idSdif) == F       ! AKs                vertical Salinity diffusion
 Aout(idHsbl) == T       ! Hsbl               depth of surface boundary layer
 Aout(idHbbl) == F       ! Hbbl               depth of bottom boundary layer
 

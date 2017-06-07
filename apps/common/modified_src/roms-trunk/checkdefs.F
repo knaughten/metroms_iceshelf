@@ -734,11 +734,17 @@
       is=LEN_TRIM(Coptions)+1
       Coptions(is:is+17)=' PRECIP_NOINTERP,'
 #endif
-#if defined ICEBERGS && defined BULK_FLUXES
+#if defined ICEBERGS
       IF (Master) WRITE (stdout,20) 'ICEBERGS',                         &
      &   'Add freshwater flux from iceberg melt'
       is=LEN_TRIM(Coptions)+1
       Coptions(is:is+10)=' ICEBERGS,'
+#endif
+#if defined SSFLUX_EXTRA
+      IF (Master) WRITE (stdout,20) 'SSFLUX_EXTRA',                     &
+     &   'Add additional surface salt flux'
+      is=LEN_TRIM(Coptions)+1
+      Coptions(is:is+14)=' SSFLUX_EXTRA,'
 #endif
 #if defined ESMF_LIB && defined MODEL_COUPLING
       IF (Master) WRITE (stdout,20) 'ESMF_LIB',                         &

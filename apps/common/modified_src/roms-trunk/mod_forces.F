@@ -112,6 +112,9 @@
 !  icebergs     Freshwater flux from iceberg melt (kg/m2/s).           !
 !  icebergsG    Latest two-time snapshots of input "icebergs" gridded  !
 !                 data used for interpolation.                         !
+!  ssflux_extra   Extra surface salt flux (psu m/s).                   !
+!  ssflux_extraG  Latest two-time snapshots of input "ssflux_extra"    !
+!                 gridded data used for interpolation.                 !
 !                                                                      !
 !  Surface tracer fluxes.                                              !
 !                                                                      !
@@ -298,6 +301,10 @@
 #  ifdef ICEBERGS
           real(r8), pointer :: icebergs(:,:)
           real(r8), pointer :: icebergsG(:,:,:)
+#  endif
+#  ifdef SSFLUX_EXTRA
+          real(r8), pointer :: ssflux_extra(:,:)
+          real(r8), pointer :: ssflux_extraG(:,:,:)
 #  endif
 #  ifdef EMINUSP
           real(r8), pointer :: EminusP(:,:)
@@ -625,6 +632,10 @@
 #  ifdef ICEBERGS
       allocate ( FORCES(ng) % icebergs(LBi:UBi,LBj:UBj) )
       allocate ( FORCES(ng) % icebergsG(LBi:UBi,LBj:UBj,2) )
+#  endif
+#  ifdef SSFLUX_EXTRA
+      allocate ( FORCES(ng) % ssflux_extra(LBi:UBi,LBj:UBj) )
+      allocate ( FORCES(ng) % ssflux_extraG(LBi:UBi,LBj:UBj,2) )
 #  endif
 #  ifdef EMINUSP
       allocate ( FORCES(ng) % EminusP(LBi:UBi,LBj:UBj) )
@@ -980,6 +991,9 @@
 #  ifdef ICEBERGS
             FORCES(ng) % icebergs(i,j) = IniVal
 #  endif
+#  ifdef SSFLUX_EXTRA
+            FORCES(ng) % ssflux_extra(i,j) = IniVal
+#  endif
 #  ifdef EMINUSP
             FORCES(ng) % EminusP(i,j) = IniVal
             FORCES(ng) % evap(i,j) = IniVal
@@ -1018,6 +1032,10 @@
 # ifdef ICEBERGS
             FORCES(ng) % icebergsG(i,j,1) = IniVal
             FORCES(ng) % icebergsG(i,j,2) = IniVal
+# endif
+# ifdef SSFLUX_EXTRA
+            FORCES(ng) % ssflux_extraG(i,j,1) = IniVal
+            FORCES(ng) % ssflux_extraG(i,j,2) = IniVal
 # endif
 # ifdef SEPARATE_EVAP
             FORCES(ng) % evapG(i,j,1) = IniVal

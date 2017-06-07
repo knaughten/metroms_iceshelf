@@ -1485,6 +1485,15 @@
   'r2dvar'
   1.0d0
 
+'ssflux_extra'
+  'additional surface salt flux'
+  'psu m/s'
+  'ssflux_extra, scalar, series'
+  'time'
+  'idssfe'
+  'r2dvar'
+  1.0d0
+
 'evaporation'                                      ! Input
   'evaporation rate'
   'kilogram meter-2 second-1'                      ! [kg m2/s]

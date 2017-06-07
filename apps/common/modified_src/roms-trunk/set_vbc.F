@@ -79,6 +79,9 @@
 #  ifdef SCORRECTION_MASK
      &                   GRID(ng)%latr, GRID(ng)%h, GRID(ng)%zice,      &
 #  endif
+#  ifdef SSFLUX_EXTRA
+     &                   FORCES(ng) % ssflux_extra,                     &
+#  endif
 #  ifdef ICEBERGS
      &                   FORCES(ng) % icebergs,                         &
 #  endif
@@ -142,6 +145,9 @@
 #  endif
 #  ifdef SCORRECTION_MASK
      &                         latr, h,  zice,                          &
+#  endif
+#  ifdef SSFLUX_EXTRA
+     &                         ssflux_extra,                            &
 #  endif
 #  ifdef ICEBERGS
      &                         icebergs,                                &
@@ -218,6 +224,9 @@
       real(r8), intent(in) :: h(LBi:,LBj:)
       real(r8), intent(in) :: zice(LBi:,LBj:)
 #   endif
+#   ifdef SSFLUX_EXTRA
+      real(r8), intent(in) :: ssflux_extra(LBi:,LBj:)
+#   endif
 #   ifdef ICEBERGS
       real(r8), intent(in) :: icebergs(LBi:,LBj:)
 #   endif
@@ -275,6 +284,9 @@
       real(r8), intent(in) :: latr(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: h(LBi:UBi,LBj:UBj)
       real(r8), intent(in) :: zice(LBi:UBi,LBj:UBj)
+#   endif
+#   ifdef SSFLUX_EXTRA
+      real(r8), intent(in) :: ssflux_extra(LBi:UBi,LBj:UBj)
 #   endif
 #   ifdef ICEBERGS
       real(r8), intent(in) :: icebergs(LBi:UBi,LBj:UBj)
@@ -439,6 +451,22 @@
         DO i=IstrR,IendR
           stflx(i,j,isalt)=stflx(i,j,isalt)-                            &
      &                     cff*t(i,j,N(ng),nrhs,isalt)*icebergs(i,j)
+        END DO
+      END DO
+#   ifdef DISTRIBUTE
+      CALL mp_exchange2d (ng, tile, iNLM, 3,                            &
+     &                    LBi, UBi, LBj, UBj,                           &
+     &                    NghostPoints,                                 &
+     &                    EWperiodic(ng), NSperiodic(ng),               &
+     &                    stflx(:,:,isalt))
+#   endif
+#  endif
+
+#  ifdef SSFLUX_EXTRA
+! Add extra surface salt flux.
+      DO j=JstrR,JendR
+        DO i=IstrR,IendR
+          stflx(i,j,isalt)=stflx(i,j,isalt)+ssflux_extra(i,j)
         END DO
       END DO
 #   ifdef DISTRIBUTE

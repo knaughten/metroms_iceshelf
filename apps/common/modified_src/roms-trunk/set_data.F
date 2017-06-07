@@ -340,6 +340,19 @@
      &                     FORCES(ng)%icebergs,                         &
      &                     update)
       IF (exit_flag.ne.NoError) RETURN
+#   endif
+#   ifdef SSFLUX_EXTRA
+!
+!-----------------------------------------------------------------------
+!  Set extra surface salt flux (psu m/s).
+!-----------------------------------------------------------------------
+!
+      CALL set_2dfld_tile (ng, tile, iNLM, idssfe,                      &
+     &                     LBi, UBi, LBj, UBj,                          &
+     &                     FORCES(ng)%ssflux_extraG,                    &
+     &                     FORCES(ng)%ssflux_extra,                     &
+     &                     update)
+      IF (exit_flag.ne.NoError) RETURN
 #    endif
 #   endif
 #  endif

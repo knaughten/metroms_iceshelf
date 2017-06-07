@@ -246,6 +246,7 @@
         integer  :: idRzet        ! RHS of free-surface
         integer  :: idrain        ! rainfall rate
         integer  :: idicebergs    ! freshwater flux from iceberg melt
+        integer  :: idssfe        ! extra surface salt flux
         integer  :: idragL        ! bottom linear drag coefficient
         integer  :: idragQ        ! bottom quadratic drag coefficient
         integer  :: idSdif        ! vertical S-diffusion coefficient
@@ -1132,6 +1133,8 @@
               idrain=varid
             CASE ('idicebergs')
               idicebergs=varid
+            CASE ('idssfe')
+              idssfe=varid
             CASE ('idEmPf')
               idEmPf=varid
             CASE ('idevap')
