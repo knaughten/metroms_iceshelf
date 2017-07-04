@@ -5,9 +5,6 @@
 branch_info
 benchmarking
 tmproms/
-static_libs/cice5.1.2.tar.gz
-static_libs/mct-2.9.tar.gz
-static_libs/roms-trunk.tar.gz
 static_libs/cice/
 apps/circumpolar2/
 apps/circumpolar3/
