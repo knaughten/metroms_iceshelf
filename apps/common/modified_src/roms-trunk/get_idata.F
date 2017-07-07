@@ -40,6 +40,9 @@
 #ifdef SOLVE3D
       USE nf_fread4d_mod, ONLY : nf_fread4d
 #endif
+#ifdef ICESHELF_RMS_TIDES
+      USE mod_iceshelfvar
+#endif
 !
       implicit none
 !
@@ -558,6 +561,19 @@
       IF (.not.Linfo(1,idCyst,ng)) THEN             ! if not gridded,
         OCEAN(ng) % CystIni = Fpoint(1,idCyst,ng)   ! load point data
       END IF
+#endif
+
+#ifdef ICESHELF_RMS_TIDES
+!  Read RMS tidal velocity.
+
+      CALL get_2dfld (ng, iNLM, idrmsv, ncFRCid(idrmsv,ng),             &
+     &                nFfiles(ng), FRC(1,ng), update(1),                &
+     &                LBi, UBi, LBj, UBj, 1, 1,                         &
+# ifdef MASKING
+     &                GRID(ng) % rmask,                                 &
+# endif
+     &                ICESHELFVAR(ng) % tide_RMSvel)
+      IF (exit_flag.ne.NoError) RETURN
 #endif
 
 #ifdef PROFILE

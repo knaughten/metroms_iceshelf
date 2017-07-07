@@ -274,6 +274,8 @@
         integer  :: idTvph        ! tidal current phase
         integer  :: idTzam        ! tidal elevation amplitude
         integer  :: idTzph        ! tidal elevation phase
+        integer  :: idrmstime     ! dummy time index for RMS tidal velocity
+        integer  :: idrmsv        ! RMS tidal velocity
         integer  :: idu2dA        ! accumulated 2D U-velocity
         integer  :: idU2rs        ! 2D total U-radiation stress
         integer  :: idU3rs        ! 3D total U-radiation stress
@@ -1201,6 +1203,10 @@
               idTzam=varid
             CASE ('idTzph')
               idTzph=varid
+            CASE ('idrmstime')
+              idrmstime=varid
+            CASE ('idrmsv')
+              idrmsv=varid
             CASE ('idTvph')
               idTvph=varid
             CASE ('idTvan')

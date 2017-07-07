@@ -143,10 +143,10 @@
 #undef ATM_PRESS          /* use to impose atmospheric pressure onto sea surface */
 #undef SOLAR_SOURCE       /* define solar radiation source term */
 
-#undef SCORRECTION       /* surface salinity restoring */
-#undef SCORRECTION_MASK  /* don't restore on Antarctic continental shelf */
-#undef SAVE_SSFREST      /* output the surface salt flux from restoring */
-#define SSFLUX_EXTRA     /* apply extra surface salt flux calculated from restoring in a previous run */
+#define SCORRECTION       /* surface salinity restoring */
+#define SCORRECTION_MASK  /* don't restore on Antarctic continental shelf */
+#define SAVE_SSFREST      /* output the surface salt flux from restoring */
+#undef  SSFLUX_EXTRA     /* apply extra surface salt flux calculated from restoring in a previous run */
 
 /* TIDES */
 #undef POT_TIDES         /* Potential tides by Kate Edstrom */
@@ -161,6 +161,7 @@
 #define ICESHELF
 #define ICESHELF_3EQN_VBC
 #undef ICESHELF_MORPH
+#define ICESHELF_RMS_TIDES  /* add RMS tidal velocity to calculation of ustar */
 
 
 /* ELVER */

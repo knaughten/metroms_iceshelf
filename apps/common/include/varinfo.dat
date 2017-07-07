@@ -1824,6 +1824,15 @@
   'r2dvar'
   0.017453292519943295                             ! pi/180
 
+'tide_RMSvel'                                      ! Input
+  'root-mean-squared tidal velocity'
+  'm/s'
+  'tide_RMSvel, scalar, series'
+  'rms_time'
+  'idrmsv'
+  'r2dvar'
+  1.0d0
+
 !
 !------------------------------------------------------------------------------
 !  River forcing variables.
