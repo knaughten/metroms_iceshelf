@@ -355,6 +355,21 @@
           END IF
         END DO
       END IF
+
+#ifdef RESTART_LAST
+      DO ng=1,Ngrids
+        IF (LwrtRST(ng).and.(blowup.eq.0)) THEN
+          IF (Master) WRITE (stdout,30)
+ 30       FORMAT (/,' Writing restart for last timestep',/)
+          Fcount=RST(ng)%Fcount
+          IF (LcycleRST(ng).and.(RST(ng)%Nrec(Fcount).ge.2)) THEN
+            RST(ng)%Rindex=2
+            LcycleRST(ng)=.FALSE.
+          END IF
+          CALL wrt_rst (ng)
+        END IF
+      END DO
+#endif
 !
 !-----------------------------------------------------------------------
 !  Stop model and time profiling clocks.  Close output NetCDF files.
