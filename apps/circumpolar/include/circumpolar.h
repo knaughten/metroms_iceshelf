@@ -161,7 +161,7 @@
 #define ICESHELF
 #define ICESHELF_3EQN_VBC
 #undef ICESHELF_MORPH
-#define ICESHELF_RMS_TIDES  /* add RMS tidal velocity to calculation of ustar */
+#undef ICESHELF_RMS_TIDES  /* add RMS tidal velocity to calculation of ustar */
 
 
 /* ELVER */
